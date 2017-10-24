@@ -98,7 +98,7 @@
 
                             <tr>
                                 <td colspan="2">
-                                    <input type="text" name="txtbuscar" size="45">                                    
+                                    <input type="text" name="txtbuscar" size="45" value="<? echo $_POST['txtbuscar']?>">                                    
                                 </td>
                             </tr>
 
