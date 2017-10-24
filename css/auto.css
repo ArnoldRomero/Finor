@@ -1,0 +1,17 @@
+i{
+    color: #465EE7
+}
+#blog .contenedor{
+    
+}
+#blog .contenedor img{
+    border: 10px solid #505050;
+    border-right: 8px solid silver;
+    border-bottom: 8px solid silver;
+    width: 250px;
+    
+ 
+}
+#blog .contenedor h5{
+    text-align: center
+}

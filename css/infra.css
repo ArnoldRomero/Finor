@@ -1,0 +1,9 @@
+i{
+    color:cyan;
+
+    font-size: 20px;
+}
+.contenedor article img{
+    border-radius: 15px;
+    box-shadow: 5px 4px 5px 0px rgba(0,0,0,0.75);
+}

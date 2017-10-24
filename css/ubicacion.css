@@ -1,0 +1,36 @@
+
+
+i{
+    color: blue;
+}
+ul{
+   
+}
+li {
+    list-style: none;
+    padding: 5px;
+    margin-bottom: 10px; 
+   
+   
+}
+a{
+    text-decoration: none
+}
+
+#blog .contenedor article iframe{
+    border: 2px solid;
+}
+
+
+@media (max-width:650px) {
+    .mapa2{
+        display: none;
+    }
+   
+}
+@media (min-width:651px)  {
+    .mapa1{
+        display: none;
+    }
+   
+}

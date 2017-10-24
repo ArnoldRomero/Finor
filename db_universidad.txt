@@ -1,0 +1,96 @@
+create database db_universidad
+use db_universidad;
+
+
+-------------TABLA ALUMNO--------------------
+create table Alumno
+(
+reg_estudiante int AUTO_INCREMENT primary key,
+nombres varchar (60) not null,
+paterno varchar (50) not null,
+materno varchar (50),
+email varchar (70)
+
+);
+
+---------------TABLA DOCENTE----------------------
+create table Docente
+(
+reg_docente int AUTO_INCREMENT primary key,
+nombre varchar (60) not null,
+paterno varchar (50) not null,
+materno varchar (50),
+telefono varchar (9)
+
+);
+
+---------------TABLA CARRERA----------------------
+create table Carrera
+(
+cod_carrera varchar (10) not null primary key,
+nombre varchar (50) not null
+);
+
+---------------TABLA MATERIA----------------------
+create table Materia
+(
+sigla varchar (10) not null primary key,
+nombre varchar (25) not null,
+creditos int
+);
+
+---------------TABLA PREREQUISITO----------------------
+create table Prerequisito
+(
+sigla varchar (10),
+sigla_req varchar (10),
+
+primary key (sigla, sigla_req),
+
+foreign key (sigla) references Materia (sigla),
+foreign key (sigla_req) references Materia (sigla)
+
+);
+
+------------TABLA MATERIA-CARRERA-----------
+create table MateriaCarrera
+(
+cod_carrera varchar (10),
+sigla varchar (10),
+semestre int not null,
+
+primary key (cod_carrera, sigla),
+foreign key (cod_carrera) references Carrera (cod_carrera),
+foreign key (sigla) references Materia (sigla)
+);
+
+--------------TABLA GRUPO---------------
+
+create table Grupo
+(
+nro_grupo int not null AUTO_INCREMENT primary key,
+fecha_inicio date,
+fecha_final date,
+gestion int,
+
+cod_docente int,
+cod_carrera varchar (10),
+sigla varchar (10),
+
+foreign key (cod_docente) references Docente (reg_docente),
+foreign key (cod_carrera, sigla) references MateriaCarrera (cod_carrera, sigla)
+
+);
+
+--------------TABLA GRUPOALUMNO--------------
+create table GrupoAlumno
+(
+reg_estudiante int,
+nro_grupo int,
+nota int not null,
+
+primary key(reg_estudiante, nro_grupo),
+foreign key (reg_estudiante) references Alumno (reg_estudiante),
+foreign key (nro_grupo) references Grupo (nro_grupo)
+
+);

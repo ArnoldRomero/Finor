@@ -1,0 +1,31 @@
+i{
+    color:deepskyblue;
+}
+#banner .contenedor a{
+    width: 60px;
+    border-radius: 5px;
+    background: rgba(67,67,67,0.6);
+}
+#banner .contenedor a:hover{
+   
+    background: rgba(67,67,67,0.8);
+}
+
+
+#blog .contenedor article h4{
+
+    margin: auto;
+    width: 800px;
+    margin-bottom: 10px
+}
+
+#blog .contenedor article p{
+   
+    text-align: justify;
+    max-width: 450px;
+
+}
+#blog .contenedor article img{
+    margin: auto;
+    padding: 15px
+}

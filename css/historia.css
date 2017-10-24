@@ -1,0 +1,23 @@
+i{
+    color: yellow;
+}
+#linktohome{
+    max-width: 60px;
+}
+.contenedor article p{
+    text-align: justify;
+    padding: 10px
+}
+
+#blog article{
+    max-width: 900px
+}
+
+#blog article h4{
+    max-width: 900px;
+    margin-bottom: 10px;
+}
+
+#blog h4{
+    text-align: left;
+}

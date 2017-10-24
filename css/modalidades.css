@@ -1,0 +1,28 @@
+#blog .contenedor{
+    border: 1px solid orange;
+    background: azure;
+    border-radius: 5px;
+}
+#blog .contenedor article{
+     
+
+    max-width: 420px;
+    text-align: justify
+}
+#blog .contenedor article h4{
+    margin: auto;
+}
+
+p{
+    padding: 15px
+}
+ul{
+    list-style: none;
+    margin-left: 25px;
+}
+li{
+    background: yellow;
+    margin-bottom: 5px;
+    border-radius: 7px;
+    padding: 5px;
+}
