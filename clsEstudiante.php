@@ -77,7 +77,7 @@ class Estudiante extends Conexion
 
 	public function Eliminar()
 	{
-		$sql="delete from Alumno where id reg_estudiante='$this->reg_estudiante'";
+		$sql="delete from Alumno where reg_estudiante='$this->reg_estudiante'";
 		if (parent::ejecutar($sql))
 			return true;
 		else

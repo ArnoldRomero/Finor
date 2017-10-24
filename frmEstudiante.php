@@ -222,8 +222,12 @@ switch ($_POST['botones']) {
        break;
 
     case 'Nuevo':
-        Eliminar();
+       
        break;
+
+    case 'Eliminar':
+        Eliminar();
+        break;
 
     case 'Buscar':
          Buscar();
