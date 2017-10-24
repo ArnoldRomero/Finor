@@ -58,23 +58,23 @@
                 		<table  align="center">
                 			<tr>
                 				<td><label for="regEst">Registro</label></td>
-                				<td><input type="text" name="regEst" id="regEst"></td>
+                				<td><input type="text" name="regEst" id="regEst" value="<?echo $_GET['x_reg'];?>"></td>
                 			</tr>
                 			<tr>
                 				<td><label for="nomEst">Nombre</label></td>
-                				<td><input type="text" name="nomEst" id="nomEst"></td>
+                				<td><input type="text" name="nomEst" id="nomEst" value="<?echo $_GET['x_nombres'];?>"></td>
                 			</tr>
                 			<tr>
                 				<td><label for="patEst">Apellido Paterno</label></td>
-                				<td><input type="text" name="patEst" id="patEst"></td>
+                				<td><input type="text" name="patEst" id="patEst" value="<?echo $_GET['x_paterno'];?>"></td>
                 			</tr>
                 			<tr>
                 				<td><label for="matEst">Apellido Materno</label></td>
-                				<td><input type="text" name="matEst" id="matEst"></td>
+                				<td><input type="text" name="matEst" id="matEst" value="<?echo $_GET['x_materno'];?>"></td>
                 			</tr>
                 			<tr>
                 				<td><label for="mailEst">E-mail</label></td>
-                				<td><input type="text" name="mailEst" id="mailEst"></td>
+                				<td><input type="text" name="mailEst" id="mailEst" value="<?echo $_GET['x_email'];?>"></td>
                 			</tr>
 
 
@@ -103,68 +103,32 @@
                             </tr>
 
                 		</table>
+
                 	</form>
                  
                 </article>
                 
             </div>
-        </section>
-
-        <section id="info">
-            <h3>Informacion que te interesaría</h3>
-               <div class="contenedor">
-               <div class="info-uni">
-                   <a href="historia.html"><img src="images/historia.jpg" alt="">
-                    </a>
-                    <h4>Historia</h4>
-                </div>
-                <div class="info-uni">
-                    <a href="infraestructura.html"><img src="images/infra5.jpg" alt=""></a>
-                    <h4>Infraestructura</h4>
-                </div>
-                <div class="info-uni">
-                    <a href="becas.html"><img src="images/becas.jpg" alt=""></a>
-                    <h4>Becas</h4>
-                </div>
-                <div class="info-uni">
-                    <a href="convenios.html"><img src="images/convenios.png" alt="convenios"></a>
-                    <h4>Convenios</h4>
-                </div>
-                </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="contenedor">
-            <p class="copy">Facultad Integral del Norte &copy; 2017</p>
-            <div class="sociales">
-                <a class="icon-telefono" href="ubicacion.html"></a>
-                <a class="icon-facebook" href="https://www.facebook.com/rrppfinor.uagrm/#"></a>
-                <a class="icon-whatsapp" href="ubicacion.html"></a>
-                <a class="icon-mapa" href="https://goo.gl/maps/365BfNbAwAG2"></a>
-            </div>
-        </div>
-    </footer>
 <?
 
 function Guardar()
 {
-	if ($_POST['regEst']) {
-		$new = new Estudiante;
-		$new->setRegEstudiante($_POST['regEst']);
-		$new->setNombre($_POST['nomEst']);
-		$new->setPaterno($_POST['patEst']);
-		$new->setMaterno($_POST['matEst']);
-		$new->setEmail($_POST['mailEst']);
+    if ($_POST['regEst']) {
+        $new = new Estudiante;
+        $new->setRegEstudiante($_POST['regEst']);
+        $new->setNombre($_POST['nomEst']);
+        $new->setPaterno($_POST['patEst']);
+        $new->setMaterno($_POST['matEst']);
+        $new->setEmail($_POST['mailEst']);
 
-		if ($new->Guardar()) {
-			echo "Se registro exitosamente al nuevo estudiante";
-		}
-		else
-			echo "Error al registrar";
-	}
-	else
-		echo "Es obligatorio el Registro";
+        if ($new->Guardar()) {
+            echo "Se registro exitosamente al nuevo estudiante";
+        }
+        else
+            echo "Error al registrar";
+    }
+    else
+        echo "Es obligatorio el Registro";
 }
 
 function Eliminar(){
@@ -221,31 +185,88 @@ function Buscar(){
 
 }
 
-function mostrarRegistros(){
-    
+function mostrarRegistros($registros){
+    echo "<table align='center'>";
+    echo "<tr>  
+                <td>Nro Registro</td>
+                <td>Nombres</td>
+                <td>Apellido Paterno</td>
+                <td>Apellido Materno</td>
+                <td>E-mail</td>
+                <td><center>*</center></td>
+          </tr>";
+    while($fila=mysqli_fetch_object($registros))
+    {
+        echo "<tr>";
+
+        echo        "<td>$fila->reg_estudiante</td>";
+        echo        "<td>$fila->nombres</td>";
+        echo        "<td>$fila->paterno</td>";
+        echo        "<td>$fila->materno</td>";
+        echo        "<td>$fila->email</td>";
+
+        echo        "<td><a href='frmEstudiante.php?x_reg=$fila->reg_estudiante&x_nombres=$fila->nombres&x_paterno=$fila->paterno&x_materno=$fila->materno&x_email=$fila->email'> [Editar] </a></td>";
+        echo "</tr>";
+    }
+    echo "</table>";
 }
 
 
 switch ($_POST['botones']) {
-	case 'Guardar':
-		Guardar();
-	   break;
+    case 'Guardar':
+        Guardar();
+       break;
 
     case 'Modificar':
         Modificar();
        break;
 
-	case 'Nuevo':
+    case 'Nuevo':
         Eliminar();
-	   break;
+       break;
 
     case 'Buscar':
          Buscar();
         break;
-	
+    
 }
-
-
 ?>
+        </section>
+
+        <section id="info">
+            <h3>Informacion que te interesaría</h3>
+               <div class="contenedor">
+               <div class="info-uni">
+                   <a href="historia.html"><img src="images/historia.jpg" alt="">
+                    </a>
+                    <h4>Historia</h4>
+                </div>
+                <div class="info-uni">
+                    <a href="infraestructura.html"><img src="images/infra5.jpg" alt=""></a>
+                    <h4>Infraestructura</h4>
+                </div>
+                <div class="info-uni">
+                    <a href="becas.html"><img src="images/becas.jpg" alt=""></a>
+                    <h4>Becas</h4>
+                </div>
+                <div class="info-uni">
+                    <a href="convenios.html"><img src="images/convenios.png" alt="convenios"></a>
+                    <h4>Convenios</h4>
+                </div>
+                </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="contenedor">
+            <p class="copy">Facultad Integral del Norte &copy; 2017</p>
+            <div class="sociales">
+                <a class="icon-telefono" href="ubicacion.html"></a>
+                <a class="icon-facebook" href="https://www.facebook.com/rrppfinor.uagrm/#"></a>
+                <a class="icon-whatsapp" href="ubicacion.html"></a>
+                <a class="icon-mapa" href="https://goo.gl/maps/365BfNbAwAG2"></a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
