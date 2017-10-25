@@ -91,8 +91,8 @@
                             <tr>
                                 <td colspan="2">
                                     <label>Busqueda por: </label>
-                                    <input type="radio" name="grupo" value="1">Registro |
-                                    <input type="radio" name="grupo" value="2">Nombre y Apellido
+                                    <input type="radio" name="grupo" value="1" checked >Registro |
+                                    <input type="radio" name="grupo" value="2" <?if (($_POST['grupo'])=='2') echo "checked";?>>Nombre y Apellido
                                 </td>
                             </tr>
 
@@ -150,11 +150,11 @@ function Modificar(){
     if ($_POST['regEst']) {
         $mod=new Estudiante();
 
-        $mod->setRegEstudiante();
-        $mod->setNombre();
-        $mod->setPaterno();
-        $mod->setMaterno();
-        $mod->setEmail();
+        $mod->setRegEstudiante($_POST['regEst']);
+        $mod->setNombre($_POST['nomEst']);
+        $mod->setPaterno($_POST['patEst']);
+        $mod->setMaterno($_POST['matEst']);
+        $mod->setEmail($_POST['mailEst']);
 
         if ($mod->Modificar()) {
             echo "Se modifico corectamente!";
@@ -177,10 +177,6 @@ function Buscar(){
             $registros=$per->BuscarPorNombreApellido($_POST['txtbuscar']);
             mostrarRegistros($registros);
             break;
-        
-        /*default:
-            
-            break;*/
     }
 
 }
