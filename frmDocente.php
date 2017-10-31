@@ -13,6 +13,7 @@
 <body>
 <?
 	include_once('clsDocente.php');
+    $criterio=$_POST['txtbuscar'];
 ?>
 
     <header>
@@ -56,30 +57,47 @@
                 		<table  align="center">
                 			<tr>
                 				<td><label for="regDoc">Registro</label></td>
-                				<td><input type="text" name="regDoc" id="regDoc"></td>
+                				<td><input type="text" name="regDoc" id="regDoc" value="<?echo $_GET['x_reg'];?>"></td>
                 			</tr>
                 			<tr>
                 				<td><label for="nomDoc">Nombre</label></td>
-                				<td><input type="text" name="nomDoc" id="nomDoc"></td>
+                				<td><input type="text" name="nomDoc" id="nomDoc" value="<?echo $_GET['x_nombres'];?>"></td>
                 			</tr>
                 			<tr>
                 				<td><label for="patDoc">Apellido Paterno</label></td>
-                				<td><input type="text" name="patDoc" id="patDoc"></td>
+                				<td><input type="text" name="patDoc" id="patDoc" value="<?echo $_GET['x_paterno'];?>"></td>
                 			</tr>
                 			<tr>
                 				<td><label for="matDoc">Apellido Materno</label></td>
-                				<td><input type="text" name="matDoc" id="matDoc"></td>
+                				<td><input type="text" name="matDoc" id="matDoc" value="<?echo $_GET['x_materno'];?>"></td>
                 			</tr>
                 			<tr>
                 				<td><label for="telDoc">Telefono</label></td>
-                				<td><input type="text" name="telDoc" id="telDoc"></td>
+                				<td><input type="text" name="telDoc" id="telDoc" value="<?echo $_GET['x_telefono'];?>"></td>
                 			</tr>
 
 
                 			<tr>
-                				 <td><input type="submit" name="botones" value="Nuevo"></td>
-                				 <td><input type="submit" name="botones" value="Guardar"></td>
+                                 <td colspan="2">
+                				 <input type="submit" name="botones" value="Nuevo">
+                				 <input type="submit" name="botones" value="Guardar">
+                                 <input type="submit" name="botones" value="Modificar">
+                                 <input type="submit" name="botones" value="Eliminar">
+                                 <input type="submit" name="botones" value="Buscar">
                 			</tr>
+                            <tr>
+                                <td colspan="2">
+                                    <label>Busqueda por: </label>
+                                    <input type="radio" name="grupo" value="1">Registro |
+                                    <input type="radio" name="grupo" value="2">Nombre y Apellido
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2">
+                                    <input type="text" name="txtbuscar" size="45">                                    
+                                </td>
+                            </tr>
 
                 		</table>
                 	</form>
@@ -87,6 +105,128 @@
                 </article>
                 
             </div>
+            <?
+
+function Guardar()
+{
+    if ($_POST['regDoc']) {
+        $new = new Docente;
+        $new->setRegDocente($_POST['regDoc']);
+        $new->setNombre($_POST['nomDoc']);
+        $new->setPaterno($_POST['patDoc']);
+        $new->setMaterno($_POST['matDoc']);
+        $new->setTelefono($_POST['telDoc']);
+
+        if ($new->Guardar()) {
+            echo "Se registro exitosamente al nuevo Docente";
+        }
+        else
+            echo "Error al registrar";
+    }
+    else
+        echo "Es obligatorio el Registro";
+}
+function Eliminar(){
+    if ($_POST['regDoc']) {
+
+        $stu=new Docente();
+
+        $stu->setRegDocente($_POST['regDoc']);
+        if ($stu->Eliminar())
+            echo "¡Se eliminaron los registros correctamente!";
+        else
+            echo "Error al Eliminar";
+    }
+    else
+        echo "Se Necesita obligatoriamente un numero de Registro";
+}
+
+function Modificar(){
+    if ($_POST['regDoc']) {
+        $mod=new Docente();
+
+        $mod->setRegDocente($_POST['regDoc']);
+        $mod->setNombre($_POST['nomDoc']);
+        $mod->setPaterno($_POST['patDoc']);
+        $mod->setMaterno($_POST['matDoc']);
+        $mod->setTelefono($_POST['telDoc']);
+
+        if ($mod->Modificar()) {
+            echo "Se modifico corectamente!";
+        }
+        else
+            echo "Error, no se modificaron los registros";
+    }
+}
+
+function Buscar(){
+    $per= new Docente();
+
+    switch ($_POST['grupo']) {
+        case '1':
+            $registros=$per->BuscarPorRegistro($_POST['txtbuscar']);
+            mostrarRegistros($registros); 
+            break;
+
+        case '2':
+            $registros=$per->BuscarPorNombreApellido($_POST['txtbuscar']);
+            mostrarRegistros($registros);
+            break;
+        
+        
+            
+
+    }
+
+}
+
+function mostrarRegistros($registros){
+    echo "<table align='center'>";
+    echo "<tr>  
+                <td>Nro Registro</td>
+                <td>Nombres</td>
+                <td>Apellido Paterno</td>
+                <td>Apellido Materno</td>
+                <td>Telefono</td>
+                <td><center>*</center></td>
+          </tr>";
+    while($fila=mysqli_fetch_object($registros))
+    {
+        echo "<tr>";
+
+        echo        "<td>$fila->reg_docente</td>";
+        echo        "<td>$fila->nombre</td>";
+        echo        "<td>$fila->paterno</td>";
+        echo        "<td>$fila->materno</td>";
+        echo        "<td>$fila->telefono</td>";
+
+        echo        "<td><a href='frmDocente.php?x_reg=$fila->reg_docente&x_nombres=$fila->nombre&x_paterno=$fila->paterno&x_materno=$fila->materno&x_telefono=$fila->telefono'> [Editar] </a></td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+}
+
+
+switch ($_POST['botones']) {
+    case 'Guardar':
+        Guardar();
+       break;
+
+    case 'Modificar':
+        Modificar();
+       break;
+
+    case 'Eliminar':
+        Eliminar();
+       break;
+
+    case 'Buscar':
+         Buscar();
+        break;
+    
+}
+
+?>
         </section>
 
         <section id="info">
@@ -124,41 +264,6 @@
             </div>
         </div>
     </footer>
-<?
 
-function Guardar()
-{
-	if ($_POST['regDoc']) {
-		$new = new Docente;
-		$new->setRegDocente($_POST['regDoc']);
-		$new->setNombre($_POST['nomDoc']);
-		$new->setPaterno($_POST['patDoc']);
-		$new->setMaterno($_POST['matDoc']);
-		$new->setTelefono($_POST['telDoc']);
-
-		if ($new->Guardar()) {
-			echo "Se registro exitosamente al nuevo Docente";
-		}
-		else
-			echo "Error al registrar";
-	}
-	else
-		echo "Es obligatorio el Registro";
-}
-
-switch ($_POST['botones']) {
-	case 'Guardar':
-	{
-		Guardar();
-	}break;
-
-	case 'Nuevo':
-	{
-	}break;
-	
-}
-
-
-?>
 </body>
 </html>

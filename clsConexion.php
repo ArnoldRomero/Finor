@@ -10,9 +10,9 @@ class Conexion{
 public function Conexion()
 {
 	$this->servidor = "localhost";
-	$this->usuario = "arnold";
-	$this->password = "123";
-	$this->basedatos = "db_universidad";
+	$this->usuario = "root";
+	$this->password = "12345678";
+	$this->basedatos = "finor";
 	
 }
 //metodos de acceso set y get

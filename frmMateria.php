@@ -13,6 +13,7 @@
 <body>
 <?
 	include_once('clsMateria.php');
+    $criterio=$_POST['txtbuscar'];
 ?>
 
     <header>
@@ -51,28 +52,47 @@
         <section id="blog">
 
             <div class="contenedor">
+                  
                 <article>
-                	<form name="estudiante" action="frmMateria.php" method="POST">
+                	<form name="materia" action="frmMateria.php" method="POST">
                 		<table  align="center">
                 			<tr>
                 				<td><label for="sigla">Sigla</label></td>
-                				<td><input type="text" name="sigla" id="sigla"></td>
+                				<td><input type="text" name="sigla" id="sigla" value="<?echo $_GET['x_sigla'];?>"></td>
                 			</tr>
                 			<tr>
                 				<td><label for="nomat">Nombre</label></td>
-                				<td><input type="text" name="nombre" id="nomat"></td>
+                				<td><input type="text" name="nombre" id="nomat" value="<?echo $_GET['x_nombre'];?>"></td>
                 			</tr>
                 			<tr>
-                				<td><label for="credit">Creditos</label></td>
-                				<td><input type="text" name="creditos" id="credit"></td>
+                				<td><label for="credmat">Creditos</label></td>
+                				<td><input type="text" name="creditos" id="credmat" value="<?echo $_GET['x_creditos'];?>"></td>
                 			</tr>
                 			
 
 
                 			<tr>
-                				 <td><input type="submit" name="botones" value="Nuevo"></td>
-                				 <td><input type="submit" name="botones" value="Guardar"></td>
+                                <td colspan="2">
+                				     <input type="submit" name="botones" value="Nuevo">
+                				     <input type="submit" name="botones" value="Guardar">
+                                     <input type="submit" name="botones" value="Modificar">
+                                     <input type="submit" name="botones" value="Eliminar">
+                                     <input type="submit" name="botones" value="Buscar">
+                                     </td>
+
                 			</tr>
+                            <tr>
+                                <td colspan="2">
+                                    <label>Busqueda por: </label>
+                                    <input type="radio" name="grupo" value="1">Sigla |
+                                    <input type="radio" name="grupo" value="2">Nombre 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <input type="text" name="txtbuscar" size="45">                                    
+                                </td>
+                                </tr>
 
                 		</table>
                 	</form>
@@ -80,6 +100,124 @@
                 </article>
                 
             </div>
+            <?
+
+function Guardar()
+{
+    if ($_POST['sigla']) {
+        $new = new Materia;
+        $new->setSigla($_POST['sigla']);
+        $new->setNombre($_POST['nombre']);
+        $new->setCreditos($_POST['creditos']);
+
+        if ($new->Guardar()) {
+            echo "Se registro exitosamente";
+        }
+        else
+            echo "Error al registrar";
+    }
+    else
+        echo "Es obligatorio la sigla";
+}
+function Eliminar(){
+    if ($_POST['sigla']) {
+
+        $stu=new Materia();
+
+        $stu->setSigla($_POST['sigla']);
+        if ($stu->Eliminar())
+            echo "¡Se eliminaron los registros correctamente!";
+        else
+            echo "Error al Eliminar";
+    }
+    else
+        echo "Se Necesita obligatoriamente un numero de sigla";
+}
+
+function Modificar(){
+
+        if ($_POST['sigla']) {
+        $new = new Materia;
+        $new->setSigla($_POST['sigla']);
+        $new->setNombre($_POST['nombre']);
+        $new->setCreditos($_POST['creditos']);
+
+        
+
+        if ($mod->Modificar()) {
+            echo "Se modifico corectamente!";
+        }
+        else
+            echo "Error, no se modificaron los registros";
+    }
+}
+
+function Buscar(){
+    $per= new Materia();
+
+    switch ($_POST['grupo']) {
+        case '1':
+            $registros=$per->BuscarPorSigla($_POST['txtbuscar']);
+            mostrarSiglas($registros); 
+            break;
+
+        case '2':
+            $registros=$per->BuscarPorNombre($_POST['txtbuscar']);
+            mostrarSiglas($registros);
+            break;
+        
+    }
+
+}
+
+function mostrarSiglas($registros){
+    echo "<table align='center'>";
+    echo "<tr>  
+                <td>Nro Sigla</td>
+                <td>Nombre</td>
+                <td>Creditos</td>
+                
+          </tr>";
+    while($fila=mysqli_fetch_object($registros))
+    {
+        echo "<tr>";
+
+        echo        "<td>$fila->sigla</td>";
+        echo        "<td>$fila->nombre</td>";
+        echo        "<td>$fila->creditos</td>";
+        
+
+        echo        "<td><a href='frmMateria.php?x_sigla=$fila->sigla&x_nombre=$fila->nombre&x_creditos=$fila->creditos'> [Editar] </a></td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+}
+
+
+switch ($_POST['botones']) {
+    case 'Guardar':
+        Guardar();
+       break;
+
+    case 'Modificar':
+        Modificar();
+       break;
+
+    case 'Eliminar':
+        Eliminar();
+       break;
+
+    case 'Buscar':
+         Buscar();
+        break;
+
+
+
+    
+}
+
+
+?>
         </section>
 
         <section id="info">
@@ -117,39 +255,6 @@
             </div>
         </div>
     </footer>
-<?
 
-function Guardar()
-{
-	if ($_POST['sigla']) {
-		$new = new Materia;
-		$new->setSigla($_POST['sigla']);
-		$new->setNombre($_POST['nombret']);
-		$new->setCreditos($_POST['creditos']);
-
-		if ($new->Guardar()) {
-			echo "Se registro exitosamente";
-		}
-		else
-			echo "Error al registrar";
-	}
-	else
-		echo "Es obligatorio la sigla";
-}
-
-switch ($_POST['botones']) {
-	case 'Guardar':
-	{
-		Guardar();
-	}break;
-
-	case 'Nuevo':
-	{
-	}break;
-	
-}
-
-
-?>
 </body>
 </html>

@@ -55,17 +55,37 @@
                 		<table  align="center">
                 			<tr>
                 				<td><label for="codCarr">Codigo de Carrera</label></td>
-                				<td><input type="text" name="codCarr" id="codCarr"></td>
+                				<td><input type="text" name="codCarr" id="codCarr" value="<?echo $_GET['x_codCarr'];?>"></td>
                 			</tr>
                 			<tr>
                 				<td><label for="nomCarr">Carrera</label></td>
-                				<td><input type="text" name="nomCarr" id="nomCarr"></td>
+                				<td><input type="text" name="nomCarr" id="nomCarr" value="<?echo $_GET['x_nombre'];?>"></td>
                 			</tr>
-                			
-                			<tr>
-                				 <td><input type="submit" name="botones" value="Nuevo"></td>
-                				 <td><input type="submit" name="botones" value="Guardar"></td>
-                			</tr>
+                		
+
+                            <tr>
+                                 <td colspan="2">
+                                    <input type="submit" name="botones" value="Nuevo" />
+                                    <input type="submit" name="botones" value="Guardar" />
+                                    <input type="submit" name="botones" value="Modificar" />
+                                    <input type="submit" name="botones" value="Eliminar" />
+                                    <input type="submit" name="botones" value="Buscar" />
+                                 </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2">
+                                    <label>Busqueda por: </label>
+                                    <input type="radio" name="grupo" value="1">COD.CARRERA |
+                                    <input type="radio" name="grupo" value="2">NOMBRE
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2">
+                                    <input type="text" name="txtbuscar" size="45">                                    
+                                </td>
+                            </tr>
 
                 		</table>
                 	</form>
@@ -75,7 +95,125 @@
             </div>
         </section>
 
-        <section id="info">
+       
+<?
+
+function Guardar()
+{
+
+	if ($_POST['codCarr']) 
+    {
+		$new = new Carrera();
+		$new->setCod_carrera($_POST['codCarr']);
+		$new->setNombre($_POST['nomCarr']);
+		if ($new->Guardar()) 
+			echo "Se registro exitosamente  la carrera";
+		
+		else
+			echo "Error al registrar";
+	}
+	else
+		echo "Es obligatorio el Registro";
+}
+
+function Eliminar()
+{
+    if ($_POST['codCarr']) 
+    {
+
+        $stu=new Carrera();
+        $stu->setCod_carrera($_POST['codCarr']);
+        if ($stu->Eliminar())
+            echo "¡Se eliminaron los Codigo correctamente!";
+        else
+            echo "Error al Eliminar";
+    }
+    else
+        echo "Se Necesita obligatoriamente un numero de Codigo";
+}
+
+function Modificar()
+{
+    if ($_POST['codCarr'])
+     {
+        $mod=new Carrera();
+        $mod->setCod_carrera($_POST['codCarr']);
+        $mod->setNombre($_POST['nomCarr']);
+        if ($mod->Modificar()) 
+            echo "Se modifico correctamente!";
+        }
+        else
+            echo "Error, no se modificaron los Codigo";
+    }
+
+
+function Buscar(){
+    $per= new Carrera();
+
+    switch ($_POST[grupo]) {
+        case '1':
+            $cod_carrera=$per->BuscarPorCodigo($_POST['txtbuscar']);
+            mostrarCod_carrera($cod_carrera); 
+            break;
+
+        case '2':
+            $cod_carrera=$per->BuscarPorNombre($_POST['txtbuscar']);
+            mostrarCod_carrera($cod_carrera);
+            break;
+        
+        /*default:
+            
+            break;*/
+    }
+
+}
+
+function mostrarCod_carrera($cod_carrera){
+    echo "<table align='center'>";
+    echo "<tr>  
+                <td>cod_carrera</td>
+                <td>nombre</td>
+                <td><center>*</center></td>
+          </tr>";
+    while($fila=mysqli_fetch_object($cod_carrera))
+    {
+        echo "<tr>";
+
+        echo        "<td>$fila->cod_carrera</td>";
+        echo        "<td>$fila->nombre</td>";
+        
+
+        echo        "<td><a href='frmCarrera.php?x_codCarr=$fila->cod_carrera&x_nombre=$fila->nombre' >[Editar] </a></td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+}
+
+
+switch ($_POST['botones']) {
+
+    case 'Nuevo':
+        # code...
+        break;
+    case 'Guardar':
+        Guardar();
+       break;
+
+    case 'Modificar':
+        Modificar();
+       break;
+
+    case 'Eliminar':
+        Eliminar();
+       break;
+
+    case 'Buscar':
+         Buscar();
+        break;
+    
+}
+?>
+ <section id="info">
             <h3>Informacion que te interesaría</h3>
                <div class="contenedor">
                <div class="info-uni">
@@ -110,40 +248,5 @@
             </div>
         </div>
     </footer>
-<?
-
-function Guardar()
-{
-
-	if ($_POST['codCarr']) {
-		$new = new Carrera;
-		$new->setCod_carrera($_POST['codCarr']);
-		$new->setNombre($_POST['nomCarr']);
-
-
-		if ($new->Guardar()) {
-			echo "Se registro exitosamente  la carrera";
-		}
-		else
-			echo "Error al registrar";
-	}
-	else
-		echo "Es obligatorio el Registro";
-}
-
-switch ($_POST['botones']) {
-	case 'Guardar':
-	{
-		Guardar();
-	}break;
-
-	case 'Nuevo':
-	{
-	}break;
-	
-}
-
-
-?>
 </body>
 </html>
