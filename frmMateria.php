@@ -84,8 +84,8 @@
                             <tr>
                                 <td colspan="2">
                                     <label>Busqueda por: </label>
-                                    <input type="radio" name="grupo" value="1">Sigla |
-                                    <input type="radio" name="grupo" value="2">Nombre 
+                                    <input type="radio" name="grupo" value="1" checked > Sigla |
+                                    <input type="radio" name="grupo" value="2" <?if (($_POST['grupo'])=='2') echo "checked";?>> Nombre 
                                 </td>
                             </tr>
                             <tr>
@@ -144,11 +144,11 @@ function Modificar(){
 
         
 
-        if ($mod->Modificar()) {
+        if ($new->Modificar()) {
             echo "Se modifico corectamente!";
         }
         else
-            echo "Error, no se modificaron los registros";
+            echo "Error, no se modificaron los registros";     
     }
 }
 
@@ -173,7 +173,7 @@ function Buscar(){
 function mostrarSiglas($registros){
     echo "<table align='center'>";
     echo "<tr>  
-                <td>Nro Sigla</td>
+                <td>Sigla</td>
                 <td>Nombre</td>
                 <td>Creditos</td>
                 
@@ -183,11 +183,11 @@ function mostrarSiglas($registros){
         echo "<tr>";
 
         echo        "<td>$fila->sigla</td>";
-        echo        "<td>$fila->nombre</td>";
+        echo        "<td>$fila->nombre_m</td>";
         echo        "<td>$fila->creditos</td>";
         
 
-        echo        "<td><a href='frmMateria.php?x_sigla=$fila->sigla&x_nombre=$fila->nombre&x_creditos=$fila->creditos'> [Editar] </a></td>";
+        echo        "<td><a href='frmMateria.php?x_sigla=$fila->sigla&x_nombre=$fila->nombre_m&x_creditos=$fila->creditos'> [Editar] </a></td>";
         echo "</tr>";
     }
     echo "</table>";

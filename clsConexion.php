@@ -12,7 +12,7 @@ public function Conexion()
 	$this->servidor = "localhost";
 	$this->usuario = "root";
 	$this->password = "12345678";
-	$this->basedatos = "finor";
+	$this->basedatos = "db_finor";
 	
 }
 //metodos de acceso set y get

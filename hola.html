@@ -1,0 +1,44 @@
+<form action="<?=$_SERVER['PHP_SELF']?>" method="post" name="fcontacto">
+
+<p>A través de donde nos has conocido:<br />
+
+<input type="radio" name="Conocido" value="Google" id="Conocid" onclick="mostrar();" /> Google
+<input type="radio" name="Conocido" value="Otros" id="Conoc" onclick="mostrar();" /> Otros
+</p>
+
+<table>
+	<tr>
+		<td><input type="text" name="" value="otro"></td>
+	</tr>
+	<tr id="desdeotro" style="display:none;">
+		<td>
+
+				<input type="text" name="otro" class="input" />
+
+		</td>
+	</tr>
+	<tr id="de" style="display:block;">
+		<td><input type="text" name="" value="mas"></td>
+	</tr>
+</table>
+
+
+
+
+<script type="text/javascript">
+
+function mostrar(){
+
+if (document.fcontacto.Conocido[1].checked == true) {
+
+document.getElementById('desdeotro').style.display='block';
+document.getElementById('de').style.display='none';
+
+} else {
+
+document.getElementById('desdeotro').style.display='none';
+document.getElementById('de').style.display='block';
+}
+}
+
+</script>

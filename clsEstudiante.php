@@ -67,7 +67,7 @@ class Estudiante extends Conexion
 
 	public function Guardar()
 	{
-     $sql="insert into Alumno(reg_estudiante,nombres,paterno,materno,email) values('$this->reg_estudiante','$this->nombres','$this->paterno','$this->materno','$this->email')";
+     $sql="insert into estudiante(reg_estudiante,nombres,paterno,materno,email) values('$this->reg_estudiante','$this->nombres','$this->paterno','$this->materno','$this->email')";
 		
 		if(parent::ejecutar($sql))
 			return true;
@@ -77,7 +77,7 @@ class Estudiante extends Conexion
 
 	public function Eliminar()
 	{
-		$sql="delete from Alumno where reg_estudiante='$this->reg_estudiante'";
+		$sql="delete from estudiante where reg_estudiante='$this->reg_estudiante'";
 		if (parent::ejecutar($sql))
 			return true;
 		else
@@ -85,8 +85,8 @@ class Estudiante extends Conexion
 	}
 
 	public function Modificar(){
-		$sql="update Alumno set nombres='$this->nombres', paterno='$this->paterno', materno='$this->materno', email='$this->email' where reg_estudiante='$this->reg_estudiante'";
-		if (parent::ejecutar(sql))
+		$sql="update estudiante set nombres='$this->nombres', paterno='$this->paterno', materno='$this->materno', email='$this->email' where reg_estudiante='$this->reg_estudiante'";
+		if (parent::ejecutar($sql))
 			return true;
 		else
 			return false;	
@@ -95,17 +95,17 @@ class Estudiante extends Conexion
 	//-----------Metodos de Funcion----------//
 
 	public function Buscar(){
-		$consulta="select * from Alumno";
+		$consulta="select * from estudiante";
 		return parent::ejecutar($consulta);
 	}
 
 	public function BuscarPorRegistro($criterio){
-		$consulta="select * from Alumno where reg_estudiante like '$criterio%'";
+		$consulta="select * from estudiante where reg_estudiante like '$criterio%'";
 		return parent::ejecutar($consulta);
 	}
 
 	public function BuscarPorNombreApellido($criterio){
-		$consulta="select * from Alumno where concat (nombres,' ',paterno) like '%$criterio%'";
+		$consulta="select * from estudiante where concat (nombres,' ',paterno) like '%$criterio%'";
 		return parent::ejecutar($consulta);
 	}
 

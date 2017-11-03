@@ -82,7 +82,7 @@
                 				 <td colspan="2">
                                     <input type="submit" name="botones" value="Nuevo">
                 				    <input type="submit" name="botones" value="Guardar">
-                                    <input type="submit" name="botones" value="Editar">
+                                    <input type="submit" name="botones" value="Modificar">
                                     <input type="submit" name="botones" value="Eliminar">
                                     <input type="submit" name="botones" value="Buscar">
                 			     </td>
@@ -161,6 +161,12 @@ function Modificar(){
         }
         else
             echo "Error, no se modificaron los registros";
+
+      /*    echo $mod->getRegEstudiante();
+            echo $mod->getNombre();
+            echo  $mod->getPaterno();
+            echo $mod->getMaterno();
+            echo $mod->getEmail();       */
     }
 }
 

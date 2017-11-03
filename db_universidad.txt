@@ -2,8 +2,8 @@ create database db_universidad
 use db_universidad;
 
 
--------------TABLA ALUMNO--------------------
-create table Alumno
+-------------TABLA ESTUDIANTE--------------------
+create table estudiante
 (
 reg_estudiante int AUTO_INCREMENT primary key,
 nombres varchar (60) not null,
@@ -14,83 +14,84 @@ email varchar (70)
 );
 
 ---------------TABLA DOCENTE----------------------
-create table Docente
+create table docente
 (
 reg_docente int AUTO_INCREMENT primary key,
-nombre varchar (60) not null,
-paterno varchar (50) not null,
-materno varchar (50),
+nombres_d varchar (60) not null,
+paterno_d varchar (50) not null,
+materno_d varchar (50),
 telefono varchar (9)
 
 );
 
 ---------------TABLA CARRERA----------------------
-create table Carrera
+create table carrera
 (
 cod_carrera varchar (10) not null primary key,
-nombre varchar (50) not null
+nombre_c varchar (50) not null
 );
 
 ---------------TABLA MATERIA----------------------
-create table Materia
+create table materia
 (
 sigla varchar (10) not null primary key,
-nombre varchar (25) not null,
+nombre_m varchar (25) not null,
 creditos int
 );
 
 ---------------TABLA PREREQUISITO----------------------
-create table Prerequisito
+create table prerequisito
 (
-sigla varchar (10),
+sigla_fp varchar (10),
 sigla_req varchar (10),
 
-primary key (sigla, sigla_req),
+primary key (sigla_fp,sigla_req),
 
-foreign key (sigla) references Materia (sigla),
-foreign key (sigla_req) references Materia (sigla)
+foreign key (sigla_fp) references materia (sigla),
+foreign key (sigla_req) references materia (sigla)
 
 );
 
 ------------TABLA MATERIA-CARRERA-----------
-create table MateriaCarrera
+create table matcar
 (
-cod_carrera varchar (10),
-sigla varchar (10),
+cod_carrera_f varchar (10),
+sigla_f varchar (10),
 semestre int not null,
 
-primary key (cod_carrera, sigla),
-foreign key (cod_carrera) references Carrera (cod_carrera),
-foreign key (sigla) references Materia (sigla)
+
+foreign key (cod_carrera_f) references carrera (cod_carrera),
+foreign key (sigla_f) references materia (sigla),
+primary key (cod_carrera_f, sigla_f)
 );
 
 --------------TABLA GRUPO---------------
 
-create table Grupo
+create table grupo
 (
 nro_grupo int not null AUTO_INCREMENT primary key,
 fecha_inicio date,
 fecha_final date,
 gestion int,
 
-cod_docente int,
-cod_carrera varchar (10),
-sigla varchar (10),
+reg_docentef int,
+cod_carreraf varchar (10),
+siglaf varchar (10),
 
-foreign key (cod_docente) references Docente (reg_docente),
-foreign key (cod_carrera, sigla) references MateriaCarrera (cod_carrera, sigla)
+foreign key (reg_docentef) references docente (reg_docente),
+foreign key (cod_carreraf,siglaf) references matcar (cod_carrera_f,sigla_f)
 
 );
 
 --------------TABLA GRUPOALUMNO--------------
-create table GrupoAlumno
+create table grupoalumno
 (
-reg_estudiante int,
-nro_grupo int,
-nota int not null,
+reg_estudiantef int,
+nro_grupof int,
+nota int,
 
-primary key(reg_estudiante, nro_grupo),
-foreign key (reg_estudiante) references Alumno (reg_estudiante),
-foreign key (nro_grupo) references Grupo (nro_grupo)
+primary key(reg_estudiantef, nro_grupof),
+foreign key (reg_estudiantef) references estudiante (reg_estudiante),
+foreign key (nro_grupof) references grupo (nro_grupo)
 
 );

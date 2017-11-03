@@ -88,8 +88,8 @@
                             <tr>
                                 <td colspan="2">
                                     <label>Busqueda por: </label>
-                                    <input type="radio" name="grupo" value="1">Registro |
-                                    <input type="radio" name="grupo" value="2">Nombre y Apellido
+                                    <input type="radio" name="grupo" value="1" checked >Registro |
+                                    <input type="radio" name="grupo" value="2" <?if (($_POST['grupo'])=='2') echo "checked";?> >Nombre y Apellido
                                 </td>
                             </tr>
 
@@ -195,12 +195,12 @@ function mostrarRegistros($registros){
         echo "<tr>";
 
         echo        "<td>$fila->reg_docente</td>";
-        echo        "<td>$fila->nombre</td>";
-        echo        "<td>$fila->paterno</td>";
-        echo        "<td>$fila->materno</td>";
+        echo        "<td>$fila->nombres_d</td>";
+        echo        "<td>$fila->paterno_d</td>";
+        echo        "<td>$fila->materno_d</td>";
         echo        "<td>$fila->telefono</td>";
 
-        echo        "<td><a href='frmDocente.php?x_reg=$fila->reg_docente&x_nombres=$fila->nombre&x_paterno=$fila->paterno&x_materno=$fila->materno&x_telefono=$fila->telefono'> [Editar] </a></td>";
+        echo        "<td><a href='frmDocente.php?x_reg=$fila->reg_docente&x_nombres=$fila->nombres_d&x_paterno=$fila->paterno_d&x_materno=$fila->materno_d&x_telefono=$fila->telefono'> [Editar] </a></td>";
         echo "</tr>";
     }
     echo "</table>";

@@ -46,7 +46,7 @@ class Materia extends Conexion
 
 	public function Guardar()
 	{
-     $sql="insert into materia(sigla,nombre,creditos) values('$this->sigla','$this->nombre','$this->creditos')";
+     $sql="insert into materia(sigla,nombre_m,creditos) values('$this->sigla','$this->nombre','$this->creditos')";
 		
 		if(parent::ejecutar($sql))
 			return true;
@@ -55,7 +55,7 @@ class Materia extends Conexion
 	}
 	public function Eliminar()
 	{
-		$sql="delete from materia where reg_materia='$this->reg_materia'";
+		$sql="delete from materia where sigla='$this->sigla'";
 		if (parent::ejecutar($sql))
 			return true;
         else
@@ -63,7 +63,7 @@ class Materia extends Conexion
 			
 		}
 			public function Modificar(){
-               $sql="update materia set sigla='$this->sigla', nombre='$this->nombre', creditos='$this->creditos'";
+               $sql="update materia set nombre_m='$this->nombre', creditos='$this->creditos' where sigla='$this->sigla'";
 		if (parent::ejecutar($sql))
 			return true;
 		else
@@ -71,17 +71,17 @@ class Materia extends Conexion
 	}
 
        public function Buscar(){
-       	$consulta="select * from materia";
+       	$consulta="SELECT * from materia ORDER BY nombre_m ASC ";
 		return parent::ejecutar($consulta);
        }
 
        public function BuscarPorSigla($criterio){
-		$consulta="select * from materia where reg_materia like '$criterio%'";
+		$consulta="SELECT * from materia where sigla like '$criterio%' ORDER BY sigla ASC ";
 		return parent::ejecutar($consulta);
 	}
 
 	public function BuscarPorNombre($criterio){
-		$consulta="select * from materia where concat (sigla,' ',nombre) like '%$criterio%'";
+		$consulta="SELECT * from materia where nombre_m like '$criterio%' ORDER BY nombre_m ASC ";
 		return parent::ejecutar($consulta);
 	}
 

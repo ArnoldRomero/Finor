@@ -64,7 +64,7 @@ public function Docente()
 	}
     public function Guardar()
 	{
-     $sql="insert into docente(reg_docente,nombre,paterno,materno,telefono) values('$this->reg_docente', '$this->nombre','$this->paterno','$this->materno','$this->telefono')";
+     $sql="insert into docente(reg_docente,nombres_d,paterno_d,materno_d,telefono) values('$this->reg_docente', '$this->nombre','$this->paterno','$this->materno','$this->telefono')";
 		
 		if(parent::ejecutar($sql))
 			return true;
@@ -81,7 +81,7 @@ public function Docente()
 	}
 
 	public function Modificar(){
-		$sql="update docente set nombre='$this->nombre', paterno='$this->paterno', materno='$this->materno', telefono='$this->telefono' where reg_docente='$this->reg_docente'";
+		$sql="update docente set nombres_d='$this->nombre', paterno_d='$this->paterno', materno_d='$this->materno', telefono='$this->telefono' where reg_docente='$this->reg_docente'";
 		if (parent::ejecutar($sql))
 			return true;
 		else
@@ -102,7 +102,7 @@ public function Docente()
 	}
 
 	public function BuscarPorNombreApellido($criterio){
-		$consulta="select * from docente where concat (nombre,' ',paterno) like '%$criterio%'";
+		$consulta="select * from docente where concat (nombres_d,' ',paterno_d) like '%$criterio%'";
 		return parent::ejecutar($consulta);
 	}
 

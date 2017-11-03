@@ -76,8 +76,8 @@
                             <tr>
                                 <td colspan="2">
                                     <label>Busqueda por: </label>
-                                    <input type="radio" name="grupo" value="1">COD.CARRERA |
-                                    <input type="radio" name="grupo" value="2">NOMBRE
+                                    <input type="radio" name="grupo" value="1" checked > Codigo  |
+                                    <input type="radio" name="grupo" value="2" <?if (($_POST['grupo'])=='2') echo "checked";?>> Nombre de Carrera
                                 </td>
                             </tr>
 
@@ -161,9 +161,6 @@ function Buscar(){
             mostrarCod_carrera($cod_carrera);
             break;
         
-        /*default:
-            
-            break;*/
     }
 
 }
@@ -171,8 +168,8 @@ function Buscar(){
 function mostrarCod_carrera($cod_carrera){
     echo "<table align='center'>";
     echo "<tr>  
-                <td>cod_carrera</td>
-                <td>nombre</td>
+                <td>Codigo Carrera</td>
+                <td>Nombre</td>
                 <td><center>*</center></td>
           </tr>";
     while($fila=mysqli_fetch_object($cod_carrera))
@@ -180,10 +177,10 @@ function mostrarCod_carrera($cod_carrera){
         echo "<tr>";
 
         echo        "<td>$fila->cod_carrera</td>";
-        echo        "<td>$fila->nombre</td>";
+        echo        "<td>$fila->nombre_c</td>";
         
 
-        echo        "<td><a href='frmCarrera.php?x_codCarr=$fila->cod_carrera&x_nombre=$fila->nombre' >[Editar] </a></td>";
+        echo        "<td><a href='frmCarrera.php?x_codCarr=$fila->cod_carrera&x_nombre=$fila->nombre_c' >[Editar] </a></td>";
         echo "</tr>";
     }
     echo "</table>";

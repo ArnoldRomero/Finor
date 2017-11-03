@@ -32,7 +32,7 @@ class Carrera extends Conexion
 
 	public function Guardar()
 	{
-     $sql="insert into carrera(cod_carrera,nombre) values('$this->cod_carrera','$this->nombre')";
+     $sql="insert into carrera(cod_carrera,nombre_c) values('$this->cod_carrera','$this->nombre')";
 		
 		if(parent::ejecutar($sql))
 			return true;
@@ -41,7 +41,7 @@ class Carrera extends Conexion
 	}
 	public function Modificar()
 	{
-		$sql="update carrera set nombre='$this->nombre' where cod_carrera='$this->cod_carrera'";
+		$sql="update carrera set nombre_c='$this->nombre' where cod_carrera='$this->cod_carrera'";
 		if (parent::ejecutar($sql))
 			return true;
 		else
@@ -70,7 +70,7 @@ class Carrera extends Conexion
 	}
 
 	public function BuscarPorNombre($criterio){
-		$consulta="select * from carrera where  nombre like '%$criterio%'";
+		$consulta="select * from carrera where  nombre_c like '%$criterio%'";
 		return parent::ejecutar($consulta);
 	}	
 }    
