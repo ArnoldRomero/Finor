@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+if (isset($_SESSION['s_usuario'])) {
+    $user=$_SESSION['s_usuario'];
+    echo "<a href='logOut.php'>CERRAR SESSION</a>";
+}
+else
+    header("location: login.php");
+    
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,22 +46,7 @@
         </div>
     </header>
 
-    <main>
-        <section id="banner">
-            <img src="images/infra.jpg">
-            <div class="contenedor">
-                <h2>FACULTAD INTEGRAL DEL NORTE</h2>
-                <p>
-                Formando profesionales competentes, emprendedores e idoneos</p>
-                <a id="linktohome" href="index.html">Inicio</a>
-            </div>
-        </section>
-
-        <section id="bienvenidos">
-            <div class="contenedor">
-                <h2>REGISTRO DE NUEVOS ESTUDIANTES</h2>
-            </div>
-        </section>
+    <main style="margin-top: 50px;">
 
         <section id="blog">
 
