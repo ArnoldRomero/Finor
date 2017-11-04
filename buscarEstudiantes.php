@@ -1,7 +1,7 @@
 <?
 ob_start();
 session_start();
-include_once('clsGrupoEstudiante.php');
+include_once('clsEstudiante.php');
 ?>
 <html>
 <head>
@@ -16,13 +16,13 @@ function Insertar(){
 </style>
 </head>
 <body>
-<center><form id="form1" method="post" action="buscarMaterias.php">
+<center><form id="form1" method="post" action="buscarEstudiantes.php">
 <fieldset id="form">
-<legend>BUSQUEDA DE MATERIAS</legend>
+<legend>BUSQUEDA DE ESTUDIANTES</legend>
 <table width="342" border="0">
 	<tr>
 		<td>
-		<label>Nombre Materia: </label>
+		<label>Nro Registro o Nombre: </label>
 		</td>
 		<td>
 			<input name="txtBuscar" type="text" size="20" value="" id="txtBuscar" />
@@ -45,13 +45,13 @@ function Insertar(){
 
 		    if ($_POST['botones']=='Buscar') {
 
-		    	$listax=new Materia();
-		    	$registros=$listax->buscarPorNombre($_POST['txtBuscar']);
+		    	$listax=new Estudiante();
+		    	$registros=$listax->Buscarxregnom($_POST['txtBuscar']);
 		    	mostrar($registros);
 		    }
 
 		    else{
-		    	$todos=new Materia();
+		    	$todos=new Estudiante();
 				$registros=$todos->Buscar();
 		    		mostrar($registros);
 		    }
@@ -61,16 +61,19 @@ function Insertar(){
 		  	  	{							  
 					echo "<table border='1' align='center'>";
 					echo "<tr bgcolor='black' align='center'>
-					<td><font color='white'>Sigla</font></td>
+
+					<td><font color='white'>Nro Registro</font></td>
 				   <td><font color='white'> Nombre</font></td>
+				   <td><font color='white'> Apellido</font></td>
 				   <td><font color='white'>*</font></td></tr>";
 					while($f=mysqli_fetch_object($registros))
 					{
-						echo "<tr >";
-						echo "<td>$f->sigla</td>";
-						echo "<td>$f->nombre_m</td>";
+						echo "<tr>";
+						echo "<td>$f->reg_estudiante</td>";
+						echo "<td>$f->nombres</td>";
+						echo "<td>$f->paterno</td>";
 
-						echo "<td><a href='buscarMaterias.php? psigla=$f->sigla&pnombre=$f->nombre_m' > << </a> </td>";
+						echo "<td><a href='buscarEstudiantes.php? x_registro=$f->reg_estudiante&x_nombre=$f->nombres&x_paterno=$f->paterno'> << </a> </td>";
 						echo "</tr>";
 					}
 					echo "</table>";
@@ -86,10 +89,11 @@ function Insertar(){
 </table>
 </form></center>
 <?
-if($_GET["pnombre"])
+if($_GET["x_registro"])
 {
- $_SESSION["nombre_mat"]=$_GET["pnombre"];
- $_SESSION["id_sigla"]=$_GET["psigla"];
+ $_SESSION["s_registro"]=$_GET["x_registro"];
+ $_SESSION["s_nombre"]=$_GET["x_nombre"];
+ $_SESSION["s_paterno"]=$_GET["x_paterno"];
 
 echo "<script> 
      opener.document.location.reload() 

@@ -79,9 +79,7 @@ include_once('clsDocente.php');
                             <tr>
                                 <td colspan="2"><input type="hidden" name="txtidgrupo" value="<?
                                 if($_GET['x_ngrupo'])
-                                    echo $_GET['x_ngrupo'];
-                                else
-                                    echo $_POST['txtidgrupo'];?>" ></td>
+                                    echo $_GET['x_ngrupo'];?>" ></td>
                             </tr>
 
                             <tr>
@@ -92,20 +90,16 @@ include_once('clsDocente.php');
                                     <input name="txtcarrera" type="text" value="<? 
                                     if ($_GET['x_nombrec']) 
                                         echo $_GET['x_nombrec']; 
-                                    elseif ($_SESSION["s_nombrec"])
-                                        echo $_SESSION["s_nombrec"];
-                                    else
-                                        echo $_POST['txtcarrera'];?>" id="txtidcarrera" />
+                                    else 
+                                        echo $_SESSION["s_nombrec"];?>" id="txtidcarrera" />
 
                                     
 
                                     <input name="txtidcarrera" type="hidden" size="3" value="<?
                                     if ($_GET['x_idcar']) 
                                         echo $_GET['x_idcar']; 
-                                    elseif ($_SESSION["s_idcar"])
-                                        echo $_SESSION["s_idcar"];
-                                    else
-                                        echo $_POST['txtidcarrera'];?>" id="txtidcarrera" />
+                                    else 
+                                        echo $_SESSION["s_idcar"]; ?>" id="txtidcarrera" />
                                 </td>
                                 
                             </tr>
@@ -117,18 +111,16 @@ include_once('clsDocente.php');
                                     <input name="txtmateria" type="text" value="<?
                                     if ($_GET['x_nombrem']) 
                                         echo $_GET['x_nombrem']; 
-                                    elseif ($_SESSION["s_nombrem"])
+                                    else 
                                         echo $_SESSION["s_nombrem"];
-                                    else
-                                        echo $_POST['txtmateria'];?>" id="txtmateria" />
+                                    ?>" id="txtmateria" />
                                 <a href="#" onClick="abreBuscarSemestre()">Buscar</a> 
                                 <input name="txtidmateria" type="hidden" size="3" value="<?
                                     if ($_GET['x_idmat']) 
                                         echo $_GET['x_idmat']; 
-                                    elseif ($_SESSION["s_idmat"])
-                                        echo $_SESSION["s_idmat"];
                                     else
-                                        echo $_POST['txtidmateria'];?>" id="txtidmateria" />
+                                        echo $_SESSION["s_idmat"];
+                                    ?>" id="txtidmateria" />
                                 </td>
                                 
                             </tr>
@@ -139,8 +131,7 @@ include_once('clsDocente.php');
                                 <td><input name="txtFecha1" type="date" maxlength="8" size="8" value="<?
                                 if($_GET['x_fechai'])
                                     echo $_GET['x_fechai'];
-                                else
-                                    echo $_POST['txtFecha1'];?>" id="txtFecha1" /></td>
+                                ?>" id="txtFecha1" /></td>
                             </tr>
 
                             <tr>
@@ -148,17 +139,14 @@ include_once('clsDocente.php');
                                 <td><input name="txtFecha2" type="date" maxlength="8" size="8" value="<?
                                 if($_GET['x_fechaf'])
                                     echo $_GET['x_fechaf'];
-                                else
-                                    echo $_POST['txtFecha2'];?>" id="txtFecha2" /></td>
+                                ?>" id="txtFecha2" /></td>
                             </tr>
 
                             <tr>
                                 <td><label for="txtaño"></label>Gestion: </td>
                                 <td><input name="txtaño" type="text" value="<?
                                 if($_GET['x_gestion'])
-                                    echo $_GET['x_gestion'];
-                                else
-                                    echo $_POST['txtaño'];?>" id="txtaño" /></td>
+                                    echo $_GET['x_gestion'];?>" id="txtaño" /></td>
                             </tr>
 
 <!-- --------------------------- TXT DOCENTE ----------------------------------- -->
@@ -168,20 +156,18 @@ include_once('clsDocente.php');
                                 <input name="txtdoc" type="text" value="<?
                                     if ($_GET['x_nombred']) 
                                         echo $_GET['x_nombred']; 
-                                    elseif ($_SESSION["s_nombred"])
-                                        echo $_SESSION["s_nombred"];
                                     else
-                                        echo $_POST['txtdoc'];?>" id="txtdoc" />
+                                        echo $_SESSION["s_nombred"];
+                                    ?>" id="txtdoc" />
 
                                 <a href="#" onClick="abreBuscarDocentes()">Buscar</a> 
 
                                 <input name="txtregdoc" type="hidden" size="3" value="<?
                                     if ($_GET['x_idoc']) 
                                         echo $_GET['x_idoc']; 
-                                    elseif ($_SESSION["s_idoc"])
-                                        echo $_SESSION["s_idoc"];
                                     else
-                                        echo $_POST['txtregdoc'];?>" 
+                                        echo $_SESSION["s_idoc"];
+                                    ?>" 
                                 id="txtregdoc"/>
                              </td>
 <!------------------------------------------------------------------------------- -->

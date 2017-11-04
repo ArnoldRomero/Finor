@@ -109,6 +109,11 @@ class Estudiante extends Conexion
 		return parent::ejecutar($consulta);
 	}
 
+	public function Buscarxregnom($criterio){
+		$consulta="SELECT * from estudiante where reg_estudiante like '$criterio%' OR concat (nombres,' ',paterno) like '%$criterio%'";
+		return parent::ejecutar($consulta);
+	}
+
 
 }    
 ?>

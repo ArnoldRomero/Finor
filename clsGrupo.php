@@ -123,6 +123,12 @@ class Grupo extends Conexion
 			return false;
 	}
 
+	public function buscar()
+	{
+		$sql="SELECT * FROM grupo,docente,matcar,materia,carrera WHERE  grupo.reg_docentef=docente.reg_docente AND grupo.siglaf=matcar.sigla_f AND grupo.cod_carreraf=matcar.cod_carrera_f AND matcar.cod_carrera_f=carrera.cod_carrera AND matcar.sigla_f=materia.sigla ORDER BY semestre ASC ";
+		return parent::ejecutar($sql);
+	}
+
 	public function buscarxid($criterio)
 	{
 		$sql="SELECT * FROM grupo,docente,matcar,materia,carrera WHERE  grupo.reg_docentef=docente.reg_docente AND grupo.siglaf=matcar.sigla_f AND grupo.cod_carreraf=matcar.cod_carrera_f AND matcar.cod_carrera_f=carrera.cod_carrera AND matcar.sigla_f=materia.sigla and nro_grupo like'$criterio%' ORDER BY semestre ASC ";
@@ -131,7 +137,7 @@ class Grupo extends Conexion
 
 	public function buscarxcarrerasemestre($carrera,$semestre)
 	{
-		$sql="SELECT * FROM grupo,docente,matcar,materia,carrera WHERE  grupo.reg_docentef=docente.reg_docente AND grupo.siglaf=matcar.sigla_f AND grupo.cod_carreraf=matcar.cod_carrera_f AND matcar.cod_carrera_f=carrera.cod_carrera AND matcar.sigla_f=materia.sigla and nombre_c like '%$carrera%' AND semestre like '$semestre%' ORDER BY semestre ASC ";
+		$sql="SELECT * FROM grupo,docente,matcar,materia,carrera WHERE  grupo.reg_docentef=docente.reg_docente AND grupo.siglaf=matcar.sigla_f AND grupo.cod_carreraf=matcar.cod_carrera_f AND matcar.cod_carrera_f=carrera.cod_carrera AND matcar.sigla_f=materia.sigla and nombre_c like '%$carrera%' OR semestre like '$semestre%' ORDER BY semestre ASC ";
 		return parent::ejecutar($sql);
 	}
 

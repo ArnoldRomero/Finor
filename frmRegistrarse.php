@@ -23,7 +23,12 @@ include_once('clsEstudiante.php');
 
     var miPopup 
     function abreBuscarEstudiante(){ 
-        miPopup = window.open("buscarEstudiante.php","miwin","width=410,height=350,scrollbars=yes")
+        miPopup = window.open("buscarEstudiantes.php","miwin","width=410,height=350,scrollbars=yes")
+         miPopup.focus() 
+    } 
+    var miPopup2 
+    function abreBuscarGrupos(){ 
+        miPopup2 = window.open("buscarGrupos.php","miwin","width=510,height=350,scrollbars=yes")
          miPopup.focus() 
     } 
 
@@ -68,7 +73,9 @@ include_once('clsEstudiante.php');
                                 <td width="150">
                                     <label for="txtRegEst">Nro Registro de Estudiante: </label></td>
                                 <td>
-                                    <input type="text" name="txtRegEst" id="txtRegEst" value="<??>">
+                                    <input type="text" name="txtRegEst" id="txtRegEst" value="<? if ($_GET['x_regest']) echo $_GET['x_regest']; 
+                                else  
+                                    echo $_SESSION["s_registro"]; ?>">
                                     <a href="#" onClick="abreBuscarEstudiante()">Buscar</a>
                                 </td>
 
@@ -76,18 +83,20 @@ include_once('clsEstudiante.php');
 
                             <tr>
                                 <td><label for="txtNombreEst">Nombre y Apellido: </label></td>
-                                <td><input type="text" size="50" name="txtNombreEst" id="txtNombreEst" value="<??>"></td>
+                                <td><input type="text" size="50" name="txtNombreEst" id="txtNombreEst" value="<? if ($_GET['x_nombre']) echo $_GET['x_nombre']." ".$_GET['x_apellido'];
+                                else  
+                                    echo $_SESSION['s_nombre']." ".$_SESSION['s_paterno']; ?>"></td>
                             </tr>
 
 
                             <tr>
                               <td width="80">Grupo: </td>
                               <td width="225">                
-                                <input name="txtNroGrupo" type="text" value="<? if ($_GET['']) echo $_GET['']; 
+                                <input name="txtNroGrupo" type="text" value="<? if ($_GET['x_nrogrupo']) echo $_GET['x_nrogrupo'];  
                                 else  
-                                    echo $_SESSION[""]; ?>" id="" />
+                                    echo $_SESSION["s_nrogrupo"]; ?>" id="" />
 
-                                <a href="#" onClick="abreBuscarMaterias()">Buscar</a> 
+                                <a href="#" onClick="abreBuscarGrupos()">Buscar</a> 
 
                             
                              </td>
@@ -99,17 +108,35 @@ include_once('clsEstudiante.php');
                             <tr> 
                               <td colspan="2">
                                   <label>Carrera: </label>
-                                    <b><?php echo $_SESSION['s_carrera'] ?><br></b>
+                                    <b><?php if($_GET['x_carrera'])
+                                        echo $_GET['x_carrera'];
+                                    else
+                                        echo $_SESSION['s_carrera']; ?><br></b>
                                   <label>Semestre: </label>
-                                    <b><?php echo $_SESSION['s_semestre'] ?><br></b>
+                                    <b><?php if($_GET['x_semestre'])
+                                        echo $_GET['x_semestre'];
+                                    else
+                                        echo $_SESSION['s_semestre']; ?><br></b>
                                   <label>Materia: </label>
-                                    <b><?php echo $_SESSION['s_materia'] ?><br></b>
+                                    <b><?php if($_GET['x_nombremateria'])
+                                        echo $_GET['x_nombremateria'];
+                                    else
+                                        echo $_SESSION['s_materia']; ?><br></b>
                                   <label>Docente: </label>
-                                    <b><?php echo $_SESSION['s_docente'] ?><br></b>
+                                    <b><?php if($_GET['x_nombred'])
+                                        echo $_GET['x_nombred']." ".$_GET['x_paternod'];
+                                    else
+                                        echo $_SESSION['s_docente']." ".$_SESSION['s_paternod']; ?><br></b>
                                   <label>Inicio de Actividades: </label>
-                                    <b><?php echo $_SESSION['s_inicio'] ?><br></b>
+                                    <b><?php if($_GET['x_fini'])
+                                        echo $_GET['x_fini'];
+                                    else
+                                        echo $_SESSION['s_inicio']; ?><br></b>
                                   <label>Fin de Actividades: </label> 
-                                    <b><?php echo $_SESSION['s_final'] ?><br></b>  
+                                    <b><?php if($_GET['x_ffin'])
+                                        echo $_GET['x_ffin'];
+                                    else
+                                        echo $_SESSION['s_final']; ?><br></b>  
                               </td>
                             </tr>
 
@@ -117,7 +144,7 @@ include_once('clsEstudiante.php');
                                  <td colspan="2" align="center">
                                     <input type="submit" name="botones" value="Nuevo" />
                                     <input type="submit" name="botones" value="Guardar" />
-                                    <input type="submit" name="botones" value="Modificar" />
+                                    <input type="submit" name="botones" value="Eliminar" />
                                     <input type="submit" name="botones" value="Buscar" />
                                  </td>
                             </tr>
@@ -127,8 +154,8 @@ include_once('clsEstudiante.php');
                                     <label>Busqueda por: </label>
                                 </td>
                                 <td align="center">
-                                    <input type="radio" name="grupo" value="1" <?if (($_POST['grupo'])=='1') echo "checked";?>> Estudiante |
-                                    <input type="radio" name="grupo" value="2" checked > Grupo  
+                                    <input type="radio" name="grupo" value="1" checked > Estudiante |
+                                    <input type="radio" name="grupo" value="2" <?if (($_POST['grupo'])=='1') echo "checked";?>> Grupo  
                                     
                                 </td>
                             </tr>
@@ -161,12 +188,10 @@ function Guardar()
         $new->setNroGrupo($_POST['txtNroGrupo']);
 
         if ($new->guardar()) 
-            echo "Se registro exitosamente  los datos";
+            echo "Se registro exitosamente los datos";
         
         else
             echo "Error al registrar";
-            echo $new->getRegEstudiante();
-            echo $new->getNroGrupo();
 
     }
     else
@@ -234,7 +259,20 @@ function mostrar($resultados){
         echo        "<td>$fila->nombres_d</td>";
         
 
-        echo        "<td><a href='frmRegistrarse.php?x_regest=$fila->reg_estudiante&x_nombre=$fila->nombres' >[Editar] </a></td>";
+        echo        "<td><a href='frmRegistrarse.php?
+        x_regest=$fila->reg_estudiante&
+        x_nombre=$fila->nombres&
+        x_apellido=$fila->paterno&  
+        x_nrogrupo=$fila->nro_grupo&
+        x_carrera=$fila->nombre_c&
+        x_semestre=$fila->semestre&
+        x_nombremateria=$fila->nombre_m&
+        x_fini=$fila->fecha_inicio&
+        x_ffin=$fila->fecha_final&
+        x_nombred=$fila->nombres_d&
+        x_paternod=$fila->paterno_d
+
+        ' >[Editar] </a></td>";
         echo "</tr>";
         }
     echo "</table>";
