@@ -1,4 +1,4 @@
-<?
+<?php
 include_once('clsConexion.php');
 class Carrera extends Conexion
 {

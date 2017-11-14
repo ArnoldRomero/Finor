@@ -54,6 +54,15 @@ class GrupoEstudiante extends Conexion
 			return false;	
 	}
 
+	public function GuardarNota(){
+		$sql="UPDATE grupoalumno SET nota='$this->nota' WHERE nro_grupof='$this->nro_grupo' AND reg_estudiantef='$this->reg_estudiante' ";
+		if (parent::ejecutar($sql)) {
+			return true;
+		}
+		else
+			return false;
+	}
+
 
 	public function eliminar()
 	{
@@ -75,6 +84,11 @@ class GrupoEstudiante extends Conexion
 	{
 		$sql="SELECT * FROM estudiante,grupoalumno,grupo,docente,matcar,carrera,materia  WHERE estudiante.reg_estudiante=grupoalumno.reg_estudiantef AND grupoalumno.nro_grupof=grupo.nro_grupo AND grupo.reg_docentef=docente.reg_docente AND grupo.siglaf=matcar.sigla_f AND grupo.cod_carreraf=matcar.cod_carrera_f AND matcar.cod_carrera_f=carrera.cod_carrera AND matcar.sigla_f=materia.sigla AND nro_grupo='$criterio'  ORDER BY nro_grupo ASC ";
 
+		return parent::ejecutar($sql);
+	}
+
+	public function buscarxtres($docente,$materia,$grupo){
+		$sql="SELECT * FROM estudiante,grupoalumno,grupo,docente,matcar,carrera,materia  WHERE estudiante.reg_estudiante=grupoalumno.reg_estudiantef AND grupoalumno.nro_grupof=grupo.nro_grupo AND grupo.reg_docentef=docente.reg_docente AND grupo.siglaf=matcar.sigla_f AND grupo.cod_carreraf=matcar.cod_carrera_f AND matcar.cod_carrera_f=carrera.cod_carrera AND matcar.sigla_f=materia.sigla AND nombres_d like '$docente%' AND nombre_m like '$materia%' AND nro_grupo like '$grupo%'  ORDER BY nro_grupo ASC ";
 		return parent::ejecutar($sql);
 	}
 

@@ -1,4 +1,4 @@
-<?
+<?php  
 ob_start();
 session_start();
 include_once('clsSemestre.php');
@@ -56,7 +56,7 @@ function Insertar(){
 	</tr>
 	<tr>
 		<td colspan="2">
-		 <?   
+		 <?php     
 
 			$carrera=$_POST['txtcarrera'];
 		    $semestre=$_POST['txtsemestre'];
@@ -114,7 +114,7 @@ function Insertar(){
 	</tr>
 </table>
 </form></center>
-<?
+<?php  
 if($_GET["b_idcar"])
 {
  $_SESSION["s_nombrec"]=$_GET["b_nombrec"];

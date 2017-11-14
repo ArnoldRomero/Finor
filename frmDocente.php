@@ -1,8 +1,18 @@
+<?php
+session_start();
+
+if (isset($_SESSION['s_usuario'])) {
+    $user=$_SESSION['s_usuario'];
+}
+else
+    header("location: login.php");
+    
+?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=0.6, user-scalable=no"/>
 
 	<title>Registro|Docente</title>
 
@@ -11,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="css/formularios.css">
 </head>
 <body>
-<?
+<?php 
 	include_once('clsDocente.php');
     $criterio=$_POST['txtbuscar'];
 ?>
@@ -23,11 +33,11 @@
             <input type="checkbox" id="menu-bar">
             <label class="icon-menu" for="menu-bar"></label>
             <nav class="menu">
-                <a href="index.html" class="icon-inicio">Inicio</a>
-                <a href="frmEstudiante.php" >Estudiantes</a>
-                <a href="frmDocente.php" >Docentes</a>
-                <a href="frmCarrera.php" >Carreras</a>
-                <a href="frmMateria.php" >Materias</a>
+                <a href="panel.php" class="icon-inicio">Principal</a>
+                <a href="frmRegistrarse.php" >Inscripcion</a>
+                <a href="registros.php" >Registros</a>
+                <a href="consultas.php" >Consultas</a>
+                <a href="logout.php">Cerrar Sesion</a>
             </nav>
         </div>
     </header>
@@ -57,23 +67,23 @@
                 		<table  align="center">
                 			<tr>
                 				<td><label for="regDoc">Registro</label></td>
-                				<td><input type="text" name="regDoc" id="regDoc" value="<?echo $_GET['x_reg'];?>"></td>
+                				<td><input type="text" name="regDoc" id="regDoc" value="<?php echo $_GET['x_reg'];?>"></td>
                 			</tr>
                 			<tr>
                 				<td><label for="nomDoc">Nombre</label></td>
-                				<td><input type="text" name="nomDoc" id="nomDoc" value="<?echo $_GET['x_nombres'];?>"></td>
+                				<td><input type="text" name="nomDoc" id="nomDoc" value="<?php echo $_GET['x_nombres'];?>"></td>
                 			</tr>
                 			<tr>
                 				<td><label for="patDoc">Apellido Paterno</label></td>
-                				<td><input type="text" name="patDoc" id="patDoc" value="<?echo $_GET['x_paterno'];?>"></td>
+                				<td><input type="text" name="patDoc" id="patDoc" value="<?php echo $_GET['x_paterno'];?>"></td>
                 			</tr>
                 			<tr>
                 				<td><label for="matDoc">Apellido Materno</label></td>
-                				<td><input type="text" name="matDoc" id="matDoc" value="<?echo $_GET['x_materno'];?>"></td>
+                				<td><input type="text" name="matDoc" id="matDoc" value="<?php echo $_GET['x_materno'];?>"></td>
                 			</tr>
                 			<tr>
                 				<td><label for="telDoc">Telefono</label></td>
-                				<td><input type="text" name="telDoc" id="telDoc" value="<?echo $_GET['x_telefono'];?>"></td>
+                				<td><input type="text" name="telDoc" id="telDoc" value="<?php echo $_GET['x_telefono'];?>"></td>
                 			</tr>
 
 
@@ -89,7 +99,7 @@
                                 <td colspan="2">
                                     <label>Busqueda por: </label>
                                     <input type="radio" name="grupo" value="1" checked >Registro |
-                                    <input type="radio" name="grupo" value="2" <?if (($_POST['grupo'])=='2') echo "checked";?> >Nombre y Apellido
+                                    <input type="radio" name="grupo" value="2" <?php if (($_POST['grupo'])=='2') echo "checked";?> >Nombre y Apellido
                                 </td>
                             </tr>
 
@@ -105,7 +115,7 @@
                 </article>
                 
             </div>
-            <?
+            <?php 
 
 function Guardar()
 {
@@ -229,28 +239,6 @@ switch ($_POST['botones']) {
 ?>
         </section>
 
-        <section id="info">
-            <h3>Informacion que te interesaría</h3>
-               <div class="contenedor">
-               <div class="info-uni">
-                   <a href="historia.html"><img src="images/historia.jpg" alt="">
-                    </a>
-                    <h4>Historia</h4>
-                </div>
-                <div class="info-uni">
-                    <a href="infraestructura.html"><img src="images/infra5.jpg" alt=""></a>
-                    <h4>Infraestructura</h4>
-                </div>
-                <div class="info-uni">
-                    <a href="becas.html"><img src="images/becas.jpg" alt=""></a>
-                    <h4>Becas</h4>
-                </div>
-                <div class="info-uni">
-                    <a href="convenios.html"><img src="images/convenios.png" alt="convenios"></a>
-                    <h4>Convenios</h4>
-                </div>
-                </div>
-        </section>
     </main>
 
     <footer>

@@ -3,7 +3,9 @@
 session_start();
 
 if (isset($_SESSION['s_usuario']))
-	header("location: frmEstudiante.php");  
+  {
+    header("location: panel.php");
+  }  
 ?>
 
 
@@ -11,7 +13,7 @@ if (isset($_SESSION['s_usuario']))
 <html >
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=0.8, user-scalable=no"/>
   <title>FINOR | Login</title>
   
   <link rel="stylesheet" href="css/fontello.css">
@@ -42,7 +44,7 @@ if (isset($_SESSION['s_usuario']))
     <form class="form-signin" action="control.php" method="POST">       
       <h2 class="form-signin-heading">Bienvenido</h2>
       <input type="text" class="form-control" name="user" placeholder="Usuario" required="" autofocus="" />
-      <input type="password" class="form-control" name="password" placeholder=Clave" required=""/>      
+      <input type="password" class="form-control" name="password" placeholder="Contraseña" required=""/>      
       
       <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar</button>   
     </form>

@@ -11,9 +11,9 @@
 	if ($resultado=mysqli_fetch_array($proceso)) {
 
 		$_SESSION['s_usuario']=$usuario;
-		header("location: frmEstudiante.php");
+		header("location: panel.php");
 	}
 	else
-		header("location: Login.php");
+		header("location: login.php");
 
 ?>

@@ -1,8 +1,15 @@
-<?
+<?php 
 ob_start();
 session_start();
+
+if (isset($_SESSION['s_usuario'])) {
+    $user=$_SESSION['s_usuario'];
+}
+else
+    header("location: login.php");
+
 ?>
-<?
+<?php 
 include_once('clsGrupo.php');
 include_once('clsEstudiante.php');
 ?>
@@ -11,7 +18,7 @@ include_once('clsEstudiante.php');
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=0.6, user-scalable=no"/>
 
     <title>Registro|Carrera</title>
 
@@ -35,7 +42,7 @@ include_once('clsEstudiante.php');
     </script>
 </head>
 <body>
-<?
+<?php 
     include_once('clsGrupoEstudiante.php');
 ?>
 
@@ -46,11 +53,11 @@ include_once('clsEstudiante.php');
             <input type="checkbox" id="menu-bar">
             <label class="icon-menu" for="menu-bar"></label>
             <nav class="menu">
-                <a href="index.html" class="icon-inicio">Inicio</a>
-                <a href="frmEstudiante.php" >Estudiantes</a>
-                <a href="frmDocente.php" >Docentes</a>
-                <a href="frmCarrera.php" >Carreras</a>
-                <a href="frmMateria.php" >Materias</a>
+                <a href="panel.php" class="icon-inicio">Principal</a>
+                <a href="frmRegistrarse.php" >Inscripcion</a>
+                <a href="registros.php" >Registros</a>
+                <a href="consultas.php" >Consultas</a>
+                <a href="logout.php">Cerrar Sesion</a>
             </nav>
         </div>
     </header>
@@ -73,7 +80,7 @@ include_once('clsEstudiante.php');
                                 <td width="150">
                                     <label for="txtRegEst">Nro Registro de Estudiante: </label></td>
                                 <td>
-                                    <input type="text" name="txtRegEst" id="txtRegEst" value="<? if ($_GET['x_regest']) echo $_GET['x_regest']; 
+                                    <input type="text" name="txtRegEst" id="txtRegEst" value="<?php  if ($_GET['x_regest']) echo $_GET['x_regest']; 
                                 else  
                                     echo $_SESSION["s_registro"]; ?>">
                                     <a href="#" onClick="abreBuscarEstudiante()">Buscar</a>
@@ -83,7 +90,7 @@ include_once('clsEstudiante.php');
 
                             <tr>
                                 <td><label for="txtNombreEst">Nombre y Apellido: </label></td>
-                                <td><input type="text" size="50" name="txtNombreEst" id="txtNombreEst" value="<? if ($_GET['x_nombre']) echo $_GET['x_nombre']." ".$_GET['x_apellido'];
+                                <td><input type="text" size="50" name="txtNombreEst" id="txtNombreEst" value="<?php  if ($_GET['x_nombre']) echo $_GET['x_nombre']." ".$_GET['x_apellido'];
                                 else  
                                     echo $_SESSION['s_nombre']." ".$_SESSION['s_paterno']; ?>"></td>
                             </tr>
@@ -92,7 +99,7 @@ include_once('clsEstudiante.php');
                             <tr>
                               <td width="80">Grupo: </td>
                               <td width="225">                
-                                <input name="txtNroGrupo" type="text" value="<? if ($_GET['x_nrogrupo']) echo $_GET['x_nrogrupo'];  
+                                <input name="txtNroGrupo" type="text" value="<?php  if ($_GET['x_nrogrupo']) echo $_GET['x_nrogrupo'];  
                                 else  
                                     echo $_SESSION["s_nrogrupo"]; ?>" id="" />
 
@@ -155,7 +162,7 @@ include_once('clsEstudiante.php');
                                 </td>
                                 <td align="center">
                                     <input type="radio" name="grupo" value="1" checked > Estudiante |
-                                    <input type="radio" name="grupo" value="2" <?if (($_POST['grupo'])=='1') echo "checked";?>> Grupo  
+                                    <input type="radio" name="grupo" value="2" <?php if (($_POST['grupo'])=='1') echo "checked";?>> Grupo  
                                     
                                 </td>
                             </tr>
@@ -175,7 +182,7 @@ include_once('clsEstudiante.php');
         </section>
 
        
-<?
+<?php 
 
 function Guardar()
 {
@@ -298,28 +305,7 @@ switch ($_POST['botones']) {
     
 }
 ?>
-    <section id="info">
-        <h3>Informacion que te interesaría</h3>
-        <div class="contenedor">
-            <div class="info-uni">
-                   <a href="historia.html"><img src="images/historia.jpg" alt="">
-                    </a>
-                    <h4>Historia</h4>
-            </div>
-            <div class="info-uni">
-                    <a href="infraestructura.html"><img src="images/infra5.jpg" alt=""></a>
-                    <h4>Infraestructura</h4>
-            </div>
-            <div class="info-uni">
-                    <a href="becas.html"><img src="images/becas.jpg" alt=""></a>
-                    <h4>Becas</h4>
-            </div>
-            <div class="info-uni">
-                    <a href="convenios.html"><img src="images/convenios.png" alt="convenios"></a>
-                    <h4>Convenios</h4>
-            </div>
-        </div>
-    </section>
+    
 </main>
 
     <footer>

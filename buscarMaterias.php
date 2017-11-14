@@ -1,4 +1,4 @@
-<?
+<?php 
 ob_start();
 session_start();
 include_once('clsMateria.php');
@@ -40,7 +40,7 @@ function Insertar(){
 	</tr>
 	<tr>
 		<td colspan="2">
-		 <?     
+		 <?php      
 			
 
 		    if ($_POST['botones']=='Buscar') {
@@ -85,7 +85,7 @@ function Insertar(){
 	</tr>
 </table>
 </form></center>
-<?
+<?php 
 if($_GET["pnombre"])
 {
  $_SESSION["nombre_mat"]=$_GET["pnombre"];

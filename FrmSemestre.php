@@ -1,8 +1,14 @@
-<?
+<?php 
 ob_start();
 session_start();
+
+if (isset($_SESSION['s_usuario'])) {
+    $user=$_SESSION['s_usuario'];
+}
+else
+    header("location: login.php");
 ?>
-<?
+<?php 
 include_once('clsMateria.php');
 include_once('clsCarrera.php');
 ?>
@@ -11,13 +17,14 @@ include_once('clsCarrera.php');
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=0.6, user-scalable=no"/>
 
     <title>Registro|Carrera</title>
 
     <link rel="stylesheet" href="css/fontello.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/formularios.css">
+   
 
     <script> 
 
@@ -32,7 +39,7 @@ include_once('clsCarrera.php');
 
 </head>
 <body>
-<?
+<?php 
     include_once('clsCarrera.php');
     include_once('clsMateria.php');
     include_once('clsSemestre.php');
@@ -45,11 +52,11 @@ include_once('clsCarrera.php');
             <input type="checkbox" id="menu-bar">
             <label class="icon-menu" for="menu-bar"></label>
             <nav class="menu">
-                <a href="index.html" class="icon-inicio">Inicio</a>
-                <a href="frmEstudiante.php" >Estudiantes</a>
-                <a href="frmDocente.php" >Docentes</a>
-                <a href="frmCarrera.php" >Carreras</a>
-                <a href="frmMateria.php" >Materias</a>
+                <a href="panel.php" class="icon-inicio">Principal</a>
+                <a href="frmRegistrarse.php" >Inscripcion</a>
+                <a href="registros.php" >Registros</a>
+                <a href="consultas.php" >Consultas</a>
+                <a href="logout.php">Cerrar Sesion</a>
             </nav>
         </div>
     </header>
@@ -70,19 +77,19 @@ include_once('clsCarrera.php');
                         <table  align="center">
                             <tr>
                                 <td><label for="sem">Semestre: </label></td>
-                                <td><input type="text" name="sem" id="sem" value="<?echo $_GET['x_semestre'];?>"></td>
+                                <td><input type="text" name="sem" id="sem" value="<?php echo $_GET['x_semestre'];?>"></td>
                             </tr>
 
                             <tr>
                               <td width="80">Materia: </td>
                               <td width="225">                
-                                <input name="txtNombreMat" type="text" value="<? if ($_GET['x_nmateria']) echo $_GET['x_nmateria']; 
+                                <input name="txtNombreMat" type="text" value="<?php  if ($_GET['x_nmateria']) echo $_GET['x_nmateria']; 
                                 else  
                                     echo $_SESSION["nombre_mat"]; ?>" id="txtNombreMat" />
 
                                 <a href="#" onClick="abreBuscarMaterias()">Buscar</a> 
 
-                                <input name="txtsigla" type="hidden" size="3" value="<?
+                                <input name="txtsigla" type="hidden" size="3" value="<?php 
                                         if ($_GET['x_sigla']) 
                                             echo $_GET['x_sigla']; 
                                         else 
@@ -94,7 +101,7 @@ include_once('clsCarrera.php');
                             <tr>
                               <td width="80">Carrera: </td>
                               <td width="325">               
-                                <?    
+                                <?php     
                                 $obj=new Carrera();
                                 $reg=$obj->Buscar();
                              
@@ -103,10 +110,10 @@ include_once('clsCarrera.php');
                                 {
                                 ?>
                                 <option 
-                                <? if($_GET['x_carrera']==$fila['nombre_c']) 
+                                <?php  if($_GET['x_carrera']==$fila['nombre_c']) 
                                     echo "selected";  else ?>  
-                                    value="<? echo $fila['cod_carrera']; ?>">
-                                <? echo $fila['nombre_c'];  
+                                    value="<?php  echo $fila['cod_carrera']; ?>">
+                                <?php  echo $fila['nombre_c'];  
                                 echo "</option>";       
                               }
                               echo "</select>"; 
@@ -127,9 +134,9 @@ include_once('clsCarrera.php');
                             <tr>
                                 <td colspan="2">
                                     <label>Busqueda por: </label>
-                                    <input type="radio" name="grupo" value="1" <?if (($_POST['grupo'])=='1') echo "checked";?>> Semestre |
+                                    <input type="radio" name="grupo" value="1" <?php if (($_POST['grupo'])=='1') echo "checked";?>> Semestre |
                                     <input type="radio" name="grupo" value="2" checked > Carrera  | 
-                                    <input type="radio" name="grupo" value="3" <?if (($_POST['grupo'])=='3') echo "checked";?>> Materia
+                                    <input type="radio" name="grupo" value="3" <?php if (($_POST['grupo'])=='3') echo "checked";?>> Materia
                                 </td>
                             </tr>
 
@@ -148,7 +155,7 @@ include_once('clsCarrera.php');
         </section>
 
        
-<?
+<?php 
 
 function Guardar()
 {
@@ -282,28 +289,7 @@ switch ($_POST['botones']) {
     
 }
 ?>
- <section id="info">
-            <h3>Informacion que te interesaría</h3>
-               <div class="contenedor">
-               <div class="info-uni">
-                   <a href="historia.html"><img src="images/historia.jpg" alt="">
-                    </a>
-                    <h4>Historia</h4>
-                </div>
-                <div class="info-uni">
-                    <a href="infraestructura.html"><img src="images/infra5.jpg" alt=""></a>
-                    <h4>Infraestructura</h4>
-                </div>
-                <div class="info-uni">
-                    <a href="becas.html"><img src="images/becas.jpg" alt=""></a>
-                    <h4>Becas</h4>
-                </div>
-                <div class="info-uni">
-                    <a href="convenios.html"><img src="images/convenios.png" alt="convenios"></a>
-                    <h4>Convenios</h4>
-                </div>
-                </div>
-        </section>
+
     </main>
 
     <footer>

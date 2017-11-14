@@ -1,8 +1,19 @@
+<?php
+session_start();
+
+if (isset($_SESSION['s_usuario'])) {
+    $user=$_SESSION['s_usuario'];
+}
+else
+    header("location: login.php");
+    
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=0.6, user-scalable=no"/>
 
 	<title>Registro|Materia</title>
 
@@ -11,7 +22,7 @@
     <link rel="stylesheet" type="text/css" href="css/formularios.css">
 </head>
 <body>
-<?
+<?php 
 	include_once('clsMateria.php');
     $criterio=$_POST['txtbuscar'];
 ?>
@@ -23,25 +34,16 @@
             <input type="checkbox" id="menu-bar">
             <label class="icon-menu" for="menu-bar"></label>
             <nav class="menu">
-                <a href="index.html" class="icon-inicio">Inicio</a>
-                <a href="frmEstudiante.php" >Estudiantes</a>
-                <a href="frmDocente.php" >Docentes</a>
-                <a href="frmCarrera.php" >Carreras</a>
-                <a href="frmMateria.php" >Materias</a>
+                <a href="panel.php" class="icon-inicio">Principal</a>
+                <a href="frmRegistrarse.php" >Inscripcion</a>
+                <a href="registros.php" >Registros</a>
+                <a href="consultas.php" >Consultas</a>
+                <a href="logout.php">Cerrar Sesion</a>
             </nav>
         </div>
     </header>
 
     <main>
-        <section id="banner">
-            <img src="images/infra.jpg">
-            <div class="contenedor">
-                <h2>FACULTAD INTEGRAL DEL NORTE</h2>
-                <p>
-                Formando profesionales competentes, emprendedores e idoneos</p>
-                <a id="linktohome" href="index.html">Inicio</a>
-            </div>
-        </section>
 
         <section id="bienvenidos">
             <div class="contenedor">
@@ -58,15 +60,15 @@
                 		<table  align="center">
                 			<tr>
                 				<td><label for="sigla">Sigla</label></td>
-                				<td><input type="text" name="sigla" id="sigla" value="<?echo $_GET['x_sigla'];?>"></td>
+                				<td><input type="text" name="sigla" id="sigla" value="<?php echo $_GET['x_sigla'];?>"></td>
                 			</tr>
                 			<tr>
                 				<td><label for="nomat">Nombre</label></td>
-                				<td><input type="text" name="nombre" id="nomat" value="<?echo $_GET['x_nombre'];?>"></td>
+                				<td><input type="text" name="nombre" id="nomat" value="<?php echo $_GET['x_nombre'];?>"></td>
                 			</tr>
                 			<tr>
                 				<td><label for="credmat">Creditos</label></td>
-                				<td><input type="text" name="creditos" id="credmat" value="<?echo $_GET['x_creditos'];?>"></td>
+                				<td><input type="text" name="creditos" id="credmat" value="<?php echo $_GET['x_creditos'];?>"></td>
                 			</tr>
                 			
 
@@ -85,7 +87,7 @@
                                 <td colspan="2">
                                     <label>Busqueda por: </label>
                                     <input type="radio" name="grupo" value="1" checked > Sigla |
-                                    <input type="radio" name="grupo" value="2" <?if (($_POST['grupo'])=='2') echo "checked";?>> Nombre 
+                                    <input type="radio" name="grupo" value="2" <?php if (($_POST['grupo'])=='2') echo "checked";?>> Nombre 
                                 </td>
                             </tr>
                             <tr>
@@ -100,7 +102,7 @@
                 </article>
                 
             </div>
-            <?
+            <?php 
 
 function Guardar()
 {
@@ -220,28 +222,6 @@ switch ($_POST['botones']) {
 ?>
         </section>
 
-        <section id="info">
-            <h3>Informacion que te interesaría</h3>
-               <div class="contenedor">
-               <div class="info-uni">
-                   <a href="historia.html"><img src="images/historia.jpg" alt="">
-                    </a>
-                    <h4>Historia</h4>
-                </div>
-                <div class="info-uni">
-                    <a href="infraestructura.html"><img src="images/infra5.jpg" alt=""></a>
-                    <h4>Infraestructura</h4>
-                </div>
-                <div class="info-uni">
-                    <a href="becas.html"><img src="images/becas.jpg" alt=""></a>
-                    <h4>Becas</h4>
-                </div>
-                <div class="info-uni">
-                    <a href="convenios.html"><img src="images/convenios.png" alt="convenios"></a>
-                    <h4>Convenios</h4>
-                </div>
-                </div>
-        </section>
     </main>
 
     <footer>

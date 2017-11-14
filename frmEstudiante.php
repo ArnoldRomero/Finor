@@ -15,7 +15,7 @@ else
 <html>
 <head>
 	<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=0.6, user-scalable=no"/>
 
 	<title>Registro|Estudiante</title>
 
@@ -24,7 +24,7 @@ else
     <link rel="stylesheet" type="text/css" href="css/formularios.css">
 </head>
 <body>
-<?
+<?php 
 	include_once('clsEstudiante.php');
 
     $criterio=$_POST['txtbuscar'];
@@ -37,11 +37,11 @@ else
             <input type="checkbox" id="menu-bar">
             <label class="icon-menu" for="menu-bar"></label>
             <nav class="menu">
-                <a href="index.html" class="icon-inicio">Inicio</a>
-                <a href="frmEstudiante.php" >Estudiantes</a>
-                <a href="frmDocente.php" >Docentes</a>
-                <a href="frmCarrera.php" >Carreras</a>
-                <a href="frmMateria.php" >Materias</a>
+                <a href="panel.php" class="icon-inicio">Principal</a>
+                <a href="frmRegistrarse.php" >Inscripcion</a>
+                <a href="registros.php" >Registros</a>
+                <a href="consultas.php" >Consultas</a>
+                <a href="logout.php">Cerrar Sesion</a>
             </nav>
         </div>
     </header>
@@ -56,23 +56,23 @@ else
                 		<table  align="center">
                 			<tr>
                 				<td><label for="regEst">Registro</label></td>
-                				<td><input type="text" name="regEst" id="regEst" value="<?echo $_GET['x_reg'];?>"></td>
+                				<td><input type="text" name="regEst" id="regEst" value="<?php echo $_GET['x_reg'];?>"></td>
                 			</tr>
                 			<tr>
                 				<td><label for="nomEst">Nombre</label></td>
-                				<td><input type="text" name="nomEst" id="nomEst" value="<?echo $_GET['x_nombres'];?>"></td>
+                				<td><input type="text" name="nomEst" id="nomEst" value="<?php echo $_GET['x_nombres'];?>"></td>
                 			</tr>
                 			<tr>
                 				<td><label for="patEst">Apellido Paterno</label></td>
-                				<td><input type="text" name="patEst" id="patEst" value="<?echo $_GET['x_paterno'];?>"></td>
+                				<td><input type="text" name="patEst" id="patEst" value="<?php echo $_GET['x_paterno'];?>"></td>
                 			</tr>
                 			<tr>
                 				<td><label for="matEst">Apellido Materno</label></td>
-                				<td><input type="text" name="matEst" id="matEst" value="<?echo $_GET['x_materno'];?>"></td>
+                				<td><input type="text" name="matEst" id="matEst" value="<?php echo $_GET['x_materno'];?>"></td>
                 			</tr>
                 			<tr>
                 				<td><label for="mailEst">E-mail</label></td>
-                				<td><input type="text" name="mailEst" id="mailEst" value="<?echo $_GET['x_email'];?>"></td>
+                				<td><input type="text" name="mailEst" id="mailEst" value="<?php echo $_GET['x_email'];?>"></td>
                 			</tr>
 
 
@@ -90,13 +90,13 @@ else
                                 <td colspan="2">
                                     <label>Busqueda por: </label>
                                     <input type="radio" name="grupo" value="1" checked >Registro |
-                                    <input type="radio" name="grupo" value="2" <?if (($_POST['grupo'])=='2') echo "checked";?>>Nombre y Apellido
+                                    <input type="radio" name="grupo" value="2" <?php if (($_POST['grupo'])=='2') echo "checked";?>>Nombre y Apellido
                                 </td>
                             </tr>
 
                             <tr>
                                 <td colspan="2">
-                                    <input type="text" name="txtbuscar" size="45" value="<? echo $_POST['txtbuscar']?>">                                    
+                                    <input type="text" name="txtbuscar" size="45" value="<?php  echo $_POST['txtbuscar']?>">                                    
                                 </td>
                             </tr>
 
@@ -107,12 +107,12 @@ else
                 </article>
                 
             </div>
-<?
+<?php 
 
 function Guardar()
 {
     if ($_POST['regEst']) {
-        $new = new Estudiante;
+        $new = new Estudiante();
         $new->setRegEstudiante($_POST['regEst']);
         $new->setNombre($_POST['nomEst']);
         $new->setPaterno($_POST['patEst']);
@@ -237,28 +237,6 @@ switch ($_POST['botones']) {
 ?>
         </section>
 
-        <section id="info">
-            <h3>Informacion que te interesaría</h3>
-               <div class="contenedor">
-               <div class="info-uni">
-                   <a href="historia.html"><img src="images/historia.jpg" alt="">
-                    </a>
-                    <h4>Historia</h4>
-                </div>
-                <div class="info-uni">
-                    <a href="infraestructura.html"><img src="images/infra5.jpg" alt=""></a>
-                    <h4>Infraestructura</h4>
-                </div>
-                <div class="info-uni">
-                    <a href="becas.html"><img src="images/becas.jpg" alt=""></a>
-                    <h4>Becas</h4>
-                </div>
-                <div class="info-uni">
-                    <a href="convenios.html"><img src="images/convenios.png" alt="convenios"></a>
-                    <h4>Convenios</h4>
-                </div>
-                </div>
-        </section>
     </main>
 
     <footer>

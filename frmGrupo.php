@@ -1,8 +1,14 @@
-<?
+<?php 
 ob_start();
 session_start();
-?>
-<?
+
+
+if (isset($_SESSION['s_usuario'])) {
+    $user=$_SESSION['s_usuario'];
+}
+else
+    header("location: login.php");
+    
 include_once('clsSemestre.php');
 include_once('clsDocente.php');
 ?>
@@ -11,7 +17,7 @@ include_once('clsDocente.php');
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=0.6, user-scalable=no"/>
 
     <title>Registro|Carrera</title>
 
@@ -38,7 +44,7 @@ include_once('clsDocente.php');
 
 </head>
 <body>
-<?
+<?php 
     include_once('clsSemestre.php');
     include_once('clsGrupo.php');
     include_once('clsDocente.php')
@@ -51,11 +57,11 @@ include_once('clsDocente.php');
             <input type="checkbox" id="menu-bar">
             <label class="icon-menu" for="menu-bar"></label>
             <nav class="menu">
-                <a href="index.html" class="icon-inicio">Inicio</a>
-                <a href="frmEstudiante.php" >Estudiantes</a>
-                <a href="frmDocente.php" >Docentes</a>
-                <a href="frmCarrera.php" >Carreras</a>
-                <a href="frmMateria.php" >Materias</a>
+                <a href="panel.php" class="icon-inicio">Principal</a>
+                <a href="frmRegistrarse.php" >Inscripcion</a>
+                <a href="registros.php" >Registros</a>
+                <a href="consultas.php" >Consultas</a>
+                <a href="logout.php">Cerrar Sesion</a>
             </nav>
         </div>
     </header>
@@ -77,7 +83,7 @@ include_once('clsDocente.php');
 
 <!-- --------------------------- DATOS SEMESTRE ----------------------------------- -->
                             <tr>
-                                <td colspan="2"><input type="hidden" name="txtidgrupo" value="<?
+                                <td colspan="2"><input type="hidden" name="txtnrogrupo" value="<?php 
                                 if($_GET['x_ngrupo'])
                                     echo $_GET['x_ngrupo'];?>" ></td>
                             </tr>
@@ -87,7 +93,7 @@ include_once('clsDocente.php');
 
                                 <td width="225">   
 
-                                    <input name="txtcarrera" type="text" value="<? 
+                                    <input name="txtcarrera" type="text" value="<?php  
                                     if ($_GET['x_nombrec']) 
                                         echo $_GET['x_nombrec']; 
                                     else 
@@ -95,7 +101,7 @@ include_once('clsDocente.php');
 
                                     
 
-                                    <input name="txtidcarrera" type="hidden" size="3" value="<?
+                                    <input name="txtidcarrera" type="hidden" size="3" value="<?php 
                                     if ($_GET['x_idcar']) 
                                         echo $_GET['x_idcar']; 
                                     else 
@@ -108,14 +114,14 @@ include_once('clsDocente.php');
                               <td width="80">Materia : </td>
 
                                 <td width="225">                
-                                    <input name="txtmateria" type="text" value="<?
+                                    <input name="txtmateria" type="text" value="<?php 
                                     if ($_GET['x_nombrem']) 
                                         echo $_GET['x_nombrem']; 
                                     else 
                                         echo $_SESSION["s_nombrem"];
                                     ?>" id="txtmateria" />
                                 <a href="#" onClick="abreBuscarSemestre()">Buscar</a> 
-                                <input name="txtidmateria" type="hidden" size="3" value="<?
+                                <input name="txtidmateria" type="hidden" size="3" value="<?php 
                                     if ($_GET['x_idmat']) 
                                         echo $_GET['x_idmat']; 
                                     else
@@ -128,7 +134,7 @@ include_once('clsDocente.php');
 <!------------------------------------------------------------------------------- -->
                             <tr>
                                 <td><label for="txtFecha1"></label>Fecha de Inicio: </td>
-                                <td><input name="txtFecha1" type="date" maxlength="8" size="8" value="<?
+                                <td><input name="txtFecha1" type="date" maxlength="8" size="8" value="<?php 
                                 if($_GET['x_fechai'])
                                     echo $_GET['x_fechai'];
                                 ?>" id="txtFecha1" /></td>
@@ -136,7 +142,7 @@ include_once('clsDocente.php');
 
                             <tr>
                                 <td><label for="txtFecha2"></label>Fecha Finalizacion: </td>
-                                <td><input name="txtFecha2" type="date" maxlength="8" size="8" value="<?
+                                <td><input name="txtFecha2" type="date" maxlength="8" size="8" value="<?php 
                                 if($_GET['x_fechaf'])
                                     echo $_GET['x_fechaf'];
                                 ?>" id="txtFecha2" /></td>
@@ -144,7 +150,7 @@ include_once('clsDocente.php');
 
                             <tr>
                                 <td><label for="txtaño"></label>Gestion: </td>
-                                <td><input name="txtaño" type="text" value="<?
+                                <td><input name="txtaño" type="text" value="<?php 
                                 if($_GET['x_gestion'])
                                     echo $_GET['x_gestion'];?>" id="txtaño" /></td>
                             </tr>
@@ -153,7 +159,7 @@ include_once('clsDocente.php');
                             <tr>
                               <td width="80">Docente: </td>
                               <td width="225">                
-                                <input name="txtdoc" type="text" value="<?
+                                <input name="txtdoc" type="text" value="<?php 
                                     if ($_GET['x_nombred']) 
                                         echo $_GET['x_nombred']; 
                                     else
@@ -162,7 +168,7 @@ include_once('clsDocente.php');
 
                                 <a href="#" onClick="abreBuscarDocentes()">Buscar</a> 
 
-                                <input name="txtregdoc" type="hidden" size="3" value="<?
+                                <input name="txtregdoc" type="hidden" size="3" value="<?php 
                                     if ($_GET['x_idoc']) 
                                         echo $_GET['x_idoc']; 
                                     else
@@ -186,8 +192,8 @@ include_once('clsDocente.php');
                             <tr>
                                 <td colspan="2">
                                     <label>Busqueda por: </label>
-                                    <input type="radio" name="grupo" value="1" <?php if (($_POST['grupo'])=='1') echo "checked";?> onclick="mostrar();" > Numero de Grupo |
-                                    <input type="radio" name="grupo" value="2" <?php if (($_POST['grupo'])=='2') echo "checked";?> onclick="mostrar();" > Carrera y semestre  
+                                    <input type="radio" name="grupo" value="1" <?php  if (($_POST['grupo'])=='1') echo "checked";?> onclick="mostrar();" > Numero de Grupo |
+                                    <input type="radio" name="grupo" value="2" <?php  if (($_POST['grupo'])=='2') echo "checked";?> onclick="mostrar();" > Carrera y semestre  
                                     <script type="text/javascript">
                                         
                                     </script>
@@ -236,7 +242,7 @@ document.getElementById('campo').style.display='block';
 }
 </script>
        
-<?
+<?php 
 
 function Guardar()
 {
@@ -255,13 +261,8 @@ function Guardar()
             echo "Se registro exitosamente  los datos";
         
         else
-            echo "Error al registrar"."<br>";
-        echo $new->getCodCarrera()."<br>";
-        echo $new->getSigla()."<br>";
-        echo $new->getfechaini()."<br>";
-        echo $new->getfechafin()."<br>";
-        echo $new->getGestion()."<br>";
-        echo $new->getRegDocente()."<br>";
+            echo "Error al registrar";
+
         
 
     }
@@ -271,19 +272,16 @@ function Guardar()
 
 function Eliminar()
 {
-    if ($_POST['txtsigla']) 
+    if ($_POST['txtnrogrupo']) 
     {
 
-        $sem=new CarreraMateria();
-        $sem->setSigla($_POST['txtsigla']);
-        $sem->setCodCarrera($_POST['cboIdCarrera']);
+        $sem=new Grupo();
+        $sem->setNroGrupo($_POST['txtnrogrupo']);
+
         if ($sem->eliminar())
             echo "¡Se eliminaron los registros correctamente!";
         else
             echo "Error al Eliminar";
-
-        echo "--".$sem->getSigla();
-        echo "--".$sem->getCodCarrera()."--";
     }
     else
         echo "Se Necesita obligatoriamente un numero de Codigo";
@@ -390,28 +388,6 @@ switch ($_POST['botones']) {
     
 }
 ?>
- <section id="info">
-            <h3>Informacion que te interesaría</h3>
-               <div class="contenedor">
-               <div class="info-uni">
-                   <a href="historia.html"><img src="images/historia.jpg" alt="">
-                    </a>
-                    <h4>Historia</h4>
-                </div>
-                <div class="info-uni">
-                    <a href="infraestructura.html"><img src="images/infra5.jpg" alt=""></a>
-                    <h4>Infraestructura</h4>
-                </div>
-                <div class="info-uni">
-                    <a href="becas.html"><img src="images/becas.jpg" alt=""></a>
-                    <h4>Becas</h4>
-                </div>
-                <div class="info-uni">
-                    <a href="convenios.html"><img src="images/convenios.png" alt="convenios"></a>
-                    <h4>Convenios</h4>
-                </div>
-                </div>
-        </section>
     </main>
 
     <footer>

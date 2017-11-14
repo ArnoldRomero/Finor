@@ -4,6 +4,10 @@
 #blog .contenedor{
   
 }
+.selda{
+    text-decoration: none;
+    color: white;
+}
 article{
    
     width: 1200px
@@ -36,3 +40,4 @@ article ul li:hover{
     cursor: pointer;
     box-shadow: -10px 4px 20px 0px rgba(0,0,0,0.75);
 }
+

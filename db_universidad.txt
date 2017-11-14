@@ -5,7 +5,7 @@ use db_universidad;
 CREATE TABLE usuario (
   id int(4)ZEROFILL NOT NULL AUTO_INCREMENT,
   usuario varchar(15) COLLATE utf8_spanish_ci NOT NULL,
-  ´password´ varchar(165) COLLATE utf8_spanish_ci NOT NULL,
+  password varchar(165) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=2 ;
 
